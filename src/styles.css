@@ -158,7 +158,11 @@
   --font-script: var(--font-script);
   --color-primary-glow: var(--primary-glow);
   --color-terracotta: var(--terracotta);
+  --color-coral: var(--coral);
+  --color-sunshine: var(--sunshine);
+  --color-leaf: var(--leaf);
   --color-sky: var(--sky);
+  --color-berry: var(--berry);
 }
 
 @layer base {
