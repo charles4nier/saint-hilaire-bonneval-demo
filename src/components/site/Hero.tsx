@@ -24,7 +24,7 @@ export function Hero() {
           <h1 className="mt-6 text-white font-display font-semibold text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
             Meuzac,
             <br />
-            <span className="font-script text-accent text-6xl md:text-8xl lg:text-9xl font-medium italic">
+            <span className="font-script text-sunshine text-6xl md:text-8xl lg:text-9xl font-medium italic">
               évadez-vous
             </span>
             <br />

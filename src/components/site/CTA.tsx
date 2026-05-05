@@ -3,15 +3,15 @@ import { Mail, MapPin, Phone } from "lucide-react";
 export function CTA() {
   return (
     <section className="px-6 lg:px-10 pb-28">
-      <div className="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-primary p-10 md:p-16 text-primary-foreground shadow-elegant">
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-accent/30 blur-3xl" />
-        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-primary-glow/40 blur-3xl" />
+      <div className="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-sunset p-10 md:p-16 text-primary-foreground shadow-elegant">
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunshine/40 blur-3xl" />
+        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-berry/40 blur-3xl" />
 
         <div className="relative grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-display text-4xl md:text-5xl font-semibold leading-tight">
               Une question ?<br />
-              <span className="font-script italic font-medium text-accent">On est là pour vous.</span>
+              <span className="font-script italic font-medium text-sunshine">On est là pour vous.</span>
             </h2>
             <p className="mt-5 text-primary-foreground/85 text-lg leading-relaxed max-w-md">
               La mairie vous accueille du lundi au vendredi. N'hésitez pas à
