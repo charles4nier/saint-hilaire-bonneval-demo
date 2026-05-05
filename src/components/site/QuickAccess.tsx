@@ -5,25 +5,29 @@ const items = [
     icon: FileText,
     title: "Démarches administratives",
     desc: "État civil, urbanisme, demandes en quelques clics.",
-    tone: "primary",
+    bg: "bg-primary/10 text-primary",
+    ring: "group-hover:ring-primary/30",
   },
   {
     icon: Gavel,
     title: "Délibérations & Actes",
     desc: "Comptes-rendus du conseil municipal et arrêtés.",
-    tone: "warm",
+    bg: "bg-coral/15 text-coral",
+    ring: "group-hover:ring-coral/30",
   },
   {
     icon: Phone,
     title: "Services & Urgences",
     desc: "Numéros utiles et services publics à proximité.",
-    tone: "sky",
+    bg: "bg-leaf/15 text-leaf",
+    ring: "group-hover:ring-leaf/30",
   },
   {
     icon: CalendarDays,
     title: "Agenda du village",
     desc: "Marchés, festivités, vie associative et culturelle.",
-    tone: "primary",
+    bg: "bg-sunshine/25 text-terracotta",
+    ring: "group-hover:ring-sunshine/40",
   },
 ] as const;
 
@@ -47,19 +51,13 @@ export function QuickAccess() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {items.map((it) => {
               const Icon = it.icon;
-              const bg =
-                it.tone === "primary"
-                  ? "bg-primary/10 text-primary"
-                  : it.tone === "warm"
-                  ? "bg-accent/15 text-accent-foreground"
-                  : "bg-sky/20 text-foreground";
               return (
                 <a
                   key={it.title}
                   href="#"
                   className="group relative p-6 rounded-2xl bg-secondary/60 hover:bg-card hover:shadow-soft border border-transparent hover:border-border transition-smooth"
                 >
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${bg} group-hover:scale-110 transition-smooth`}>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${it.bg} ring-4 ring-transparent ${it.ring} group-hover:scale-110 transition-smooth`}>
                     <Icon className="w-5 h-5" strokeWidth={2} />
                   </div>
                   <h3 className="mt-5 font-display text-lg font-semibold leading-snug">{it.title}</h3>
