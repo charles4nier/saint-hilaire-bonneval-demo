@@ -1,26 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { QuickAccess } from "@/components/site/QuickAccess";
+import { Discover } from "@/components/site/Discover";
+import { MayorWord } from "@/components/site/MayorWord";
+import { News } from "@/components/site/News";
+import { CTA } from "@/components/site/CTA";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Meuzac · Évadez-vous en pleine nature en Haute-Vienne" },
+      {
+        name: "description",
+        content:
+          "Site officiel de la commune de Meuzac (87) : démarches, actualités, tourisme, vie locale et patrimoine au cœur du Limousin.",
+      },
+      { property: "og:title", content: "Meuzac · Commune de Haute-Vienne" },
+      {
+        property: "og:description",
+        content: "Évadez-vous en pleine nature : étangs, forêts et patrimoine vivant.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <QuickAccess />
+      <Discover />
+      <MayorWord />
+      <News />
+      <CTA />
+      <Footer />
+    </main>
+  );
 }
