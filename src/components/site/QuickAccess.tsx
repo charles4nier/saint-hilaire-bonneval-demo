@@ -35,7 +35,7 @@ export function QuickAccess() {
   return (
     <section id="demarches" className="relative -mt-20 z-20 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-card shadow-elegant border-t-4 border-primary p-6 md:p-10">
+        <div className="bg-card shadow-elegant border-t-4 border-coral p-6 md:p-10">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-4 pb-6 border-b border-border">
             <div>
               <p className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold">Services en ligne</p>
