@@ -28,7 +28,7 @@ export function Navbar() {
       {/* Bandeau république */}
       <div
         className={`hidden md:block transition-smooth ${
-          scrolled ? "bg-primary text-primary-foreground" : "bg-foreground/40 backdrop-blur-md text-white"
+          scrolled ? "bg-gradient-sunset text-white" : "bg-foreground/40 backdrop-blur-md text-white"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-9 flex items-center justify-between text-[11px] tracking-[0.18em] uppercase">
@@ -84,8 +84,8 @@ export function Navbar() {
                 href={l.href}
                 className={`inline-flex items-center gap-1 px-3 py-2 text-[13px] font-medium transition-smooth border-b-2 border-transparent ${
                   scrolled
-                    ? "text-foreground/80 hover:text-primary hover:border-primary"
-                    : "text-white/95 hover:text-white hover:border-white"
+                    ? "text-foreground/80 hover:text-coral hover:border-coral"
+                    : "text-white/95 hover:text-white hover:border-sunshine"
                 }`}
               >
                 {l.label}
@@ -97,7 +97,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#demarches"
-              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-primary text-primary-foreground text-[13px] font-semibold uppercase tracking-wider hover:bg-primary/90 transition-smooth"
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-coral text-white text-[13px] font-semibold uppercase tracking-wider hover:bg-coral/90 transition-smooth shadow-warm"
             >
               Mes démarches
             </a>
