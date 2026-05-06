@@ -1,6 +1,6 @@
-import lake from "@/assets/meuzac-lake.jpg";
-import village from "@/assets/meuzac-village.jpg";
-import forest from "@/assets/meuzac-forest.jpg";
+import lake from "@/assets/saint-hilaire-bonneval-lake.jpg";
+import village from "@/assets/saint-hilaire-bonneval-village.jpg";
+import forest from "@/assets/saint-hilaire-bonneval-forest.jpg";
 import { ArrowRight } from "lucide-react";
 
 const cards = [
@@ -35,7 +35,7 @@ export function Discover() {
           </h2>
           <div className="mt-4 w-16 h-1 bg-coral" />
           <p className="mt-6 text-muted-foreground text-base leading-relaxed">
-            Entre Limoges et Brive, Meuzac vous invite à ralentir. Découvrez ses paysages,
+            Entre Limoges et Brive, Saint-Hilaire-Bonneval vous invite à ralentir. Découvrez ses paysages,
             son patrimoine bâti et la richesse d'un village où il fait bon vivre.
           </p>
         </div>

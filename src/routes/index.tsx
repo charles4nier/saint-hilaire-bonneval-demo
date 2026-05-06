@@ -12,13 +12,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Meuzac · Évadez-vous en pleine nature en Haute-Vienne" },
+      { title: "Saint-Hilaire-Bonneval · Évadez-vous en pleine nature en Haute-Vienne" },
       {
         name: "description",
         content:
-          "Site officiel de la commune de Meuzac (87) : démarches, actualités, tourisme, vie locale et patrimoine au cœur du Limousin.",
+          "Site officiel de la commune de Saint-Hilaire-Bonneval (87) : démarches, actualités, tourisme, vie locale et patrimoine au cœur du Limousin.",
       },
-      { property: "og:title", content: "Meuzac · Commune de Haute-Vienne" },
+      { property: "og:title", content: "Saint-Hilaire-Bonneval · Commune de Haute-Vienne" },
       {
         property: "og:description",
         content: "Évadez-vous en pleine nature : étangs, forêts et patrimoine vivant.",

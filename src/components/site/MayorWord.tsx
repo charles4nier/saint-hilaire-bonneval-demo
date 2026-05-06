@@ -1,4 +1,4 @@
-import village from "@/assets/meuzac-village.jpg";
+import village from "@/assets/saint-hilaire-bonneval-village.jpg";
 import { Quote } from "lucide-react";
 
 export function MayorWord() {
@@ -7,10 +7,10 @@ export function MayorWord() {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
         <div className="relative">
           <div className="aspect-[4/5] overflow-hidden shadow-elegant">
-            <img src={village} alt="Le village de Meuzac" loading="lazy" width={1280} height={896} className="w-full h-full object-cover" />
+            <img src={village} alt="Le village de Saint-Hilaire-Bonneval" loading="lazy" width={1280} height={896} className="w-full h-full object-cover" />
           </div>
           <div className="absolute -bottom-8 -right-4 md:-right-8 bg-card px-6 py-5 shadow-elegant border-l-4 border-coral max-w-[260px]">
-            <div className="text-3xl font-display font-semibold text-primary">~850</div>
+            <div className="text-3xl font-display font-semibold text-primary">1 022</div>
             <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Habitants au cœur du Limousin</div>
           </div>
         </div>
@@ -25,7 +25,7 @@ export function MayorWord() {
           <div className="mt-8 relative pl-8 border-l-2 border-primary/30">
             <Quote className="absolute -left-3 top-0 w-5 h-5 text-primary bg-background" />
             <p className="text-base text-foreground/85 leading-relaxed">
-              Meuzac, c'est l'histoire d'un village qui avance sans renier ses racines.
+              Saint-Hilaire-Bonneval, c'est l'histoire d'un village qui avance sans renier ses racines.
               Un lieu où la nature dicte le tempo, où les liens se tissent autour de
               projets partagés. Avec l'ensemble du conseil municipal, nous travaillons
               chaque jour pour faire vivre cette commune et la transmettre, embellie,
@@ -39,7 +39,7 @@ export function MayorWord() {
             </div>
             <div>
               <div className="font-semibold">Monsieur le Maire</div>
-              <div className="text-sm text-muted-foreground">Commune de Meuzac</div>
+              <div className="text-sm text-muted-foreground">Commune de Saint-Hilaire-Bonneval</div>
             </div>
           </div>
         </div>

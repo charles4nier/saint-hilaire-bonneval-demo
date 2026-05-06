@@ -9,7 +9,7 @@ export function CTA() {
 
         <div className="relative grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-sunshine font-bold">Mairie de Meuzac</p>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-sunshine font-bold">Mairie de Saint-Hilaire-Bonneval</p>
             <h2 className="font-display text-3xl md:text-4xl font-semibold leading-tight mt-3">
               Nous contacter
             </h2>
@@ -28,9 +28,9 @@ export function CTA() {
 
           <div className="grid sm:grid-cols-1 gap-3">
             {[
-              { icon: MapPin, label: "Adresse", value: "Place de la Mairie, 87380 Meuzac" },
+              { icon: MapPin, label: "Adresse", value: "Le Bourg, 87260 Saint-Hilaire-Bonneval" },
               { icon: Phone, label: "Téléphone", value: "05 55 09 99 99" },
-              { icon: Mail, label: "Email", value: "contact@meuzac.fr" },
+              { icon: Mail, label: "Email", value: "contact@Saint-Hilaire-Bonneval.fr" },
             ].map((c) => {
               const Icon = c.icon;
               return (
