@@ -35,10 +35,12 @@ export function Navbar() {
           <span className="font-medium">République Française · Liberté · Égalité · Fraternité</span>
           <div className="flex items-center gap-5">
             <a href="tel:0555099999" className="inline-flex items-center gap-1.5 hover:opacity-80">
-              <Phone className="w-3 h-3" /> 05 55 09 99 99
+              <Phone className="w-3 h-3" />
+              <span>05 55 09 99 99</span>
             </a>
             <a href="mailto:contact@meuzac.fr" className="inline-flex items-center gap-1.5 hover:opacity-80">
-              <Mail className="w-3 h-3" /> contact@meuzac.fr
+              <Mail className="w-3 h-3" />
+              <span>contact@meuzac.fr</span>
             </a>
           </div>
         </div>
