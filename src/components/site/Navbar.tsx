@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, MapPin } from "lucide-react";
+import { Menu, Phone, Mail, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import logo from "@/assets/meuzac-logo.png";
 
 const links = [
-  { label: "Votre mairie", href: "/" },
+  { label: "La mairie", href: "/" },
   { label: "Vivre à Meuzac", href: "/" },
-  { label: "Tourisme & Loisirs", href: "/" },
+  { label: "Démarches", href: "#demarches" },
+  { label: "Tourisme & Patrimoine", href: "#decouvrir" },
   { label: "Vie associative", href: "/" },
   { label: "Contact", href: "/" },
 ];
@@ -22,73 +24,96 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-smooth ${
-        scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-border/60 shadow-soft"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-elegant group-hover:scale-105 transition-smooth">
-              <MapPin className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
-            </div>
-          </div>
-          <div className="leading-none">
-            <div
-              className={`font-display text-2xl font-semibold tracking-tight ${
-                scrolled ? "text-foreground" : "text-white drop-shadow-md"
-              }`}
-            >
-              Meuzac
-            </div>
-            <div
-              className={`text-[11px] tracking-[0.18em] uppercase mt-1 ${
-                scrolled ? "text-muted-foreground" : "text-white/85"
-              }`}
-            >
-              Haute-Vienne · 87
-            </div>
-          </div>
-        </Link>
-
-        <nav className="hidden lg:flex items-center gap-1">
-          {links.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-smooth hover:bg-foreground/5 ${
-                scrolled ? "text-foreground/80 hover:text-foreground" : "text-white/95 hover:bg-white/15"
-              }`}
-            >
-              {l.label}
+    <header className="fixed top-0 inset-x-0 z-50">
+      {/* Bandeau république */}
+      <div
+        className={`hidden md:block transition-smooth ${
+          scrolled ? "bg-primary text-primary-foreground" : "bg-foreground/40 backdrop-blur-md text-white"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-9 flex items-center justify-between text-[11px] tracking-[0.18em] uppercase">
+          <span className="font-medium">République Française · Liberté · Égalité · Fraternité</span>
+          <div className="flex items-center gap-5">
+            <a href="tel:0555099999" className="inline-flex items-center gap-1.5 hover:opacity-80">
+              <Phone className="w-3 h-3" /> 05 55 09 99 99
             </a>
-          ))}
-        </nav>
+            <a href="mailto:contact@meuzac.fr" className="inline-flex items-center gap-1.5 hover:opacity-80">
+              <Mail className="w-3 h-3" /> contact@meuzac.fr
+            </a>
+          </div>
+        </div>
+      </div>
 
-        <div className="flex items-center gap-3">
-          <a
-            href="#demarches"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-warm text-accent-foreground text-sm font-semibold shadow-warm hover:scale-[1.03] transition-smooth"
-          >
-            Mes démarches
-          </a>
-          <button
-            onClick={() => setOpen(!open)}
-            className={`lg:hidden p-2 rounded-xl ${scrolled ? "text-foreground" : "text-white"}`}
-            aria-label="Menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+      {/* Barre principale */}
+      <div
+        className={`transition-smooth ${
+          scrolled
+            ? "bg-background/95 backdrop-blur-xl border-b border-border shadow-soft"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${scrolled ? "bg-card border border-border" : "bg-white/95"} shadow-soft`}>
+              <img src={logo} alt="Blason de Meuzac" className="w-9 h-9 object-contain" />
+            </div>
+            <div className="leading-tight">
+              <div
+                className={`font-display text-xl font-semibold tracking-tight uppercase ${
+                  scrolled ? "text-foreground" : "text-white drop-shadow-md"
+                }`}
+              >
+                Commune de Meuzac
+              </div>
+              <div
+                className={`text-[10px] tracking-[0.22em] uppercase mt-0.5 ${
+                  scrolled ? "text-muted-foreground" : "text-white/85"
+                }`}
+              >
+                Haute-Vienne · 87380
+              </div>
+            </div>
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-1">
+            {links.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                className={`inline-flex items-center gap-1 px-3 py-2 text-[13px] font-medium transition-smooth border-b-2 border-transparent ${
+                  scrolled
+                    ? "text-foreground/80 hover:text-primary hover:border-primary"
+                    : "text-white/95 hover:text-white hover:border-white"
+                }`}
+              >
+                {l.label}
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="#demarches"
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-primary text-primary-foreground text-[13px] font-semibold uppercase tracking-wider hover:bg-primary/90 transition-smooth"
+            >
+              Mes démarches
+            </a>
+            <button
+              onClick={() => setOpen(!open)}
+              className={`lg:hidden p-2 ${scrolled ? "text-foreground" : "text-white"}`}
+              aria-label="Menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
 
       {open && (
         <div className="lg:hidden bg-background border-t border-border px-6 py-4 space-y-1">
           {links.map((l) => (
-            <a key={l.label} href={l.href} className="block px-4 py-3 rounded-xl text-foreground hover:bg-muted">
+            <a key={l.label} href={l.href} className="block px-4 py-3 text-foreground hover:bg-muted">
               {l.label}
             </a>
           ))}
