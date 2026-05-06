@@ -12,43 +12,42 @@ export function Hero() {
         height={1280}
       />
       <div className="absolute inset-0 bg-gradient-hero" />
-      <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-foreground/30" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24 min-h-[100svh] flex flex-col justify-end">
         <div className="max-w-3xl animate-fade-up">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white text-xs font-medium tracking-wide uppercase">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary text-primary-foreground text-[11px] font-semibold tracking-[0.18em] uppercase">
             <Leaf className="w-3.5 h-3.5" />
-            Bienvenue en Haute-Vienne
+            Site officiel de la commune
           </span>
 
-          <h1 className="mt-6 text-white font-display font-semibold text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
-            Meuzac,
+          <h1 className="mt-6 text-white font-display font-semibold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
+            Bienvenue à <span className="text-sunshine">Meuzac</span>,
             <br />
-            <span className="font-script text-sunshine text-6xl md:text-8xl lg:text-9xl font-medium italic">
-              évadez-vous
-            </span>
-            <br />
-            en pleine nature.
+            au cœur de la Haute-Vienne.
           </h1>
 
-          <p className="mt-8 text-white/90 text-lg md:text-xl max-w-xl leading-relaxed">
-            Un village vivant entre étangs, forêts et chemins de traverse. Découvrez
-            les services, événements et richesses de notre commune.
+          <div className="mt-6 w-20 h-1 bg-coral" />
+
+          <p className="mt-6 text-white/90 text-lg max-w-xl leading-relaxed">
+            Entre étangs, forêts et patrimoine vivant, la commune vous accueille.
+            Retrouvez ici vos démarches, l'actualité municipale et toutes les
+            informations utiles à la vie locale.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-3">
             <a
-              href="#decouvrir"
-              className="group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white text-foreground font-semibold shadow-elegant hover:shadow-warm hover:scale-[1.03] transition-smooth"
+              href="#demarches"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-semibold uppercase tracking-wider text-sm shadow-elegant hover:bg-primary/90 transition-smooth"
             >
-              Découvrir Meuzac
+              Effectuer une démarche
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-smooth" />
             </a>
             <a
-              href="#demarches"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold hover:bg-white/20 transition-smooth"
+              href="#decouvrir"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 backdrop-blur-md border border-white/40 text-white font-semibold uppercase tracking-wider text-sm hover:bg-white/20 transition-smooth"
             >
-              Mes démarches en ligne
+              Découvrir la commune
             </a>
           </div>
         </div>

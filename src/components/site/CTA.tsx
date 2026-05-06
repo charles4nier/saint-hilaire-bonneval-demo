@@ -3,25 +3,26 @@ import { Mail, MapPin, Phone } from "lucide-react";
 export function CTA() {
   return (
     <section className="px-6 lg:px-10 pb-28">
-      <div className="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-sunset p-10 md:p-16 text-primary-foreground shadow-elegant">
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunshine/40 blur-3xl" />
-        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-berry/40 blur-3xl" />
+      <div className="max-w-7xl mx-auto relative overflow-hidden bg-primary p-10 md:p-16 text-primary-foreground shadow-elegant border-t-4 border-coral">
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunshine/20 blur-3xl" />
+        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-coral/20 blur-3xl" />
 
         <div className="relative grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold leading-tight">
-              Une question ?<br />
-              <span className="font-script italic font-medium text-sunshine">On est là pour vous.</span>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-sunshine font-bold">Mairie de Meuzac</p>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold leading-tight mt-3">
+              Nous contacter
             </h2>
-            <p className="mt-5 text-primary-foreground/85 text-lg leading-relaxed max-w-md">
-              La mairie vous accueille du lundi au vendredi. N'hésitez pas à
-              nous contacter pour toute démarche ou information.
+            <div className="mt-4 w-16 h-1 bg-coral" />
+            <p className="mt-6 text-primary-foreground/85 text-base leading-relaxed max-w-md">
+              La mairie vous accueille du lundi au vendredi, de 9h à 12h et de 14h à 17h.
+              Le secrétariat reste à votre disposition pour toute démarche.
             </p>
             <a
               href="#"
-              className="mt-8 inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white text-foreground font-semibold shadow-soft hover:scale-[1.03] transition-smooth"
+              className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-white text-primary font-semibold uppercase tracking-wider text-sm hover:bg-sunshine transition-smooth"
             >
-              Nous contacter
+              Prendre rendez-vous
             </a>
           </div>
 
@@ -33,12 +34,12 @@ export function CTA() {
             ].map((c) => {
               const Icon = c.icon;
               return (
-                <div key={c.label} className="flex items-center gap-4 p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
-                  <div className="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+                <div key={c.label} className="flex items-center gap-4 p-5 bg-white/10 backdrop-blur-md border-l-2 border-sunshine">
+                  <div className="w-11 h-11 bg-white/15 flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs uppercase tracking-wider text-primary-foreground/70">{c.label}</div>
+                    <div className="text-[10px] uppercase tracking-[0.18em] text-primary-foreground/70">{c.label}</div>
                     <div className="font-medium mt-0.5">{c.value}</div>
                   </div>
                 </div>
