@@ -34,7 +34,7 @@ export function MayorWord() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-border flex items-center gap-4">
-            <div className="w-14 h-14 bg-primary flex items-center justify-center text-primary-foreground font-display text-xl font-semibold">
+            <div className="w-14 h-14 bg-gradient-sunset flex items-center justify-center text-white font-display text-xl font-semibold">
               M
             </div>
             <div>
