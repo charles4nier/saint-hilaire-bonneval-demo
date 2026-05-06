@@ -16,7 +16,7 @@ export function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24 min-h-[100svh] flex flex-col justify-end">
         <div className="max-w-3xl animate-fade-up">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary text-primary-foreground text-[11px] font-semibold tracking-[0.18em] uppercase">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-coral text-white text-[11px] font-semibold tracking-[0.18em] uppercase">
             <Leaf className="w-3.5 h-3.5" />
             Site officiel de la commune
           </span>
@@ -38,7 +38,7 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap gap-3">
             <a
               href="#demarches"
-              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-semibold uppercase tracking-wider text-sm shadow-elegant hover:bg-primary/90 transition-smooth"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-coral text-white font-semibold uppercase tracking-wider text-sm shadow-warm hover:bg-coral/90 transition-smooth"
             >
               Effectuer une démarche
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-smooth" />
