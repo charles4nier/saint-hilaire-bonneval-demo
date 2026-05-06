@@ -27,14 +27,15 @@ export function News() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
           <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Actualités</p>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold mt-3 leading-tight">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold">Actualités municipales</p>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold mt-3 leading-tight">
               Les dernières nouvelles de la commune
             </h2>
+            <div className="mt-4 w-16 h-1 bg-coral" />
           </div>
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-foreground/15 text-sm font-semibold hover:bg-foreground hover:text-background transition-smooth"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary text-sm font-semibold uppercase tracking-wider hover:bg-primary hover:text-primary-foreground transition-smooth"
           >
             Toutes les actualités <ArrowRight className="w-4 h-4" />
           </a>
@@ -44,7 +45,7 @@ export function News() {
           {news.map((n) => (
             <article
               key={n.title}
-              className="group bg-card rounded-3xl p-7 border border-border/60 hover:border-primary/30 hover:shadow-soft transition-smooth cursor-pointer"
+              className="group bg-card p-7 border-l-4 border-primary/30 hover:border-coral hover:shadow-soft transition-smooth cursor-pointer"
             >
               <div className="flex items-center gap-3 text-sm">
                 <div className="flex items-center gap-1.5 text-muted-foreground">
@@ -52,13 +53,13 @@ export function News() {
                   {n.date}
                 </div>
                 <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-                <span className="text-primary font-medium">{n.cat}</span>
+                <span className="text-primary font-semibold uppercase tracking-wider text-xs">{n.cat}</span>
               </div>
-              <h3 className="mt-5 font-display text-xl font-semibold leading-snug group-hover:text-primary transition-smooth">
+              <h3 className="mt-5 font-display text-lg font-semibold leading-snug group-hover:text-primary transition-smooth">
                 {n.title}
               </h3>
               <p className="mt-3 text-muted-foreground text-sm leading-relaxed">{n.excerpt}</p>
-              <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+              <div className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-foreground">
                 Lire la suite
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-smooth" />
               </div>

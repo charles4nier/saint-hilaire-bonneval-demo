@@ -29,14 +29,14 @@ export function Discover() {
     <section id="decouvrir" className="py-28 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
-          <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">À découvrir</p>
-          <h2 className="font-display text-4xl md:text-5xl font-semibold mt-3 leading-tight">
-            Un territoire <span className="font-script text-primary italic font-medium">à vivre</span>,
-            au rythme de la nature.
+          <p className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold">Tourisme & Patrimoine</p>
+          <h2 className="font-display text-3xl md:text-4xl font-semibold mt-3 leading-tight">
+            Un territoire à vivre, au rythme de la nature
           </h2>
-          <p className="mt-5 text-muted-foreground text-lg leading-relaxed">
+          <div className="mt-4 w-16 h-1 bg-coral" />
+          <p className="mt-6 text-muted-foreground text-base leading-relaxed">
             Entre Limoges et Brive, Meuzac vous invite à ralentir. Découvrez ses paysages,
-            son patrimoine et la chaleur d'un village où il fait bon vivre.
+            son patrimoine bâti et la richesse d'un village où il fait bon vivre.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export function Discover() {
           {cards.map((c, i) => (
             <article
               key={c.title}
-              className={`group relative overflow-hidden rounded-3xl bg-card shadow-soft hover:shadow-elegant transition-smooth ${
+              className={`group relative overflow-hidden bg-card shadow-soft hover:shadow-elegant transition-smooth ${
                 i === 0 ? "md:row-span-2 md:h-auto" : ""
               }`}
             >
