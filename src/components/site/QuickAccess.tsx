@@ -43,7 +43,7 @@ export function QuickAccess() {
                 Vos démarches administratives
               </h2>
             </div>
-            <a href="#" className="text-sm text-primary font-semibold hover:underline inline-flex items-center gap-1">
+            <a href="#" className="text-sm text-leaf font-semibold hover:underline inline-flex items-center gap-1">
               Tous les services <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>

@@ -29,7 +29,7 @@ export function CTA() {
           <div className="grid sm:grid-cols-1 gap-3">
             {[
               { icon: MapPin, label: "Adresse", value: "Le Bourg, 87260 Saint-Hilaire-Bonneval" },
-              { icon: Phone, label: "Téléphone", value: "05 55 09 99 99" },
+              { icon: Phone, label: "Téléphone", value: "05 55 00 61 65" },
               { icon: Mail, label: "Email", value: "contact@Saint-Hilaire-Bonneval.fr" },
             ].map((c) => {
               const Icon = c.icon;
