@@ -3,9 +3,9 @@ import { Mail, MapPin, Phone } from "lucide-react";
 export function CTA() {
   return (
     <section className="px-6 lg:px-10 pb-28">
-      <div className="max-w-7xl mx-auto relative overflow-hidden bg-gradient-sunset p-10 md:p-16 text-white shadow-elegant border-t-4 border-sunshine">
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunshine/40 blur-3xl" />
-        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-berry/40 blur-3xl" />
+      <div className="max-w-7xl mx-auto relative overflow-hidden bg-gradient-forest p-10 md:p-16 text-white shadow-elegant border-t-4 border-sunshine">
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunshine/30 blur-3xl" />
+        <div className="absolute -bottom-32 -left-16 w-96 h-96 rounded-full bg-leaf/40 blur-3xl" />
 
         <div className="relative grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -20,7 +20,7 @@ export function CTA() {
             </p>
             <a
               href="#"
-              className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-white text-coral font-semibold uppercase tracking-wider text-sm hover:bg-sunshine hover:text-foreground transition-smooth"
+              className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-white text-leaf font-semibold uppercase tracking-wider text-sm hover:bg-sunshine hover:text-foreground transition-smooth"
             >
               Prendre rendez-vous
             </a>
