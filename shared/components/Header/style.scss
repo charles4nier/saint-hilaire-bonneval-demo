@@ -1,0 +1,217 @@
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	transition: $transition-smooth;
+
+	&__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 80px;
+	}
+
+	&.scrolled {
+		background: $background-95;
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-bottom: 1px solid $border;
+		box-shadow: $shadow-soft;
+	}
+
+	/* ---- Logo ---- */
+
+	&__logo {
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm + 4px;
+		flex-shrink: 0;
+	}
+
+	&__logo-badge {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		background: rgba(255, 255, 255, 0.95);
+		box-shadow: $shadow-soft;
+		overflow: hidden;
+
+		.scrolled & {
+			background: $card;
+			border: 1px solid $border;
+		}
+	}
+
+	&__logo-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1;
+	}
+
+	&__logo-name {
+		font-family: $font-display;
+		font-size: 18px;
+		font-weight: $font-weight-semibold;
+		letter-spacing: -0.01em;
+		text-transform: uppercase;
+		color: #ffffff;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		transition: $transition-smooth;
+
+		.scrolled & {
+			color: $foreground;
+			text-shadow: none;
+		}
+	}
+
+	&__logo-sub {
+		font-family: $font-body;
+		font-size: $xs-size-desktop;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.85);
+		margin-top: 3px;
+		transition: $transition-smooth;
+
+		.scrolled & {
+			color: $muted-foreground;
+		}
+	}
+
+	/* ---- Nav desktop ---- */
+
+	&__nav {
+		display: none;
+		align-items: center;
+		gap: 2px;
+
+		@media (min-width: $breakpoint-md + 1) {
+			display: flex;
+		}
+	}
+
+	&__nav-link {
+		display: inline-flex;
+		align-items: center;
+		padding: 8px 12px;
+		font-family: $font-body;
+		font-size: 13px;
+		font-weight: $font-weight-medium;
+		color: rgba(255, 255, 255, 0.95);
+		border-bottom: 2px solid transparent;
+		transition: $transition-smooth;
+		white-space: nowrap;
+
+		&:hover {
+			color: $sunshine;
+			border-bottom-color: $sunshine;
+		}
+
+		.scrolled & {
+			color: $foreground-80;
+
+			&:hover {
+				color: $coral;
+				border-bottom-color: $coral;
+			}
+		}
+	}
+
+	/* ---- Actions ---- */
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm;
+	}
+
+	&__cta {
+		display: none;
+		align-items: center;
+		gap: $spacing-xs;
+		padding: 10px 20px;
+		background-color: $primary;
+		color: #ffffff;
+		font-family: $font-body;
+		font-size: 13px;
+		font-weight: $font-weight-semibold;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		transition: $transition-smooth;
+		box-shadow: $shadow-warm;
+
+		&:hover {
+			background-color: $coral;
+		}
+
+		@media (min-width: $breakpoint-sm + 1) {
+			display: inline-flex;
+		}
+	}
+
+	&__burger {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px;
+		color: #ffffff;
+		transition: $transition-smooth;
+
+		.scrolled & {
+			color: $foreground;
+		}
+
+		@media (min-width: $breakpoint-md + 1) {
+			display: none;
+		}
+	}
+
+	/* ---- Overlay & mobile nav ---- */
+
+	&__overlay {
+		position: fixed;
+		inset: 0;
+		background: $foreground-50;
+		z-index: 40;
+		backdrop-filter: blur(4px);
+	}
+
+	&__mobile {
+		position: fixed;
+		top: 80px;
+		left: 0;
+		right: 0;
+		background: $background;
+		border-top: 1px solid $border;
+		padding: $spacing-md 0;
+		z-index: 49;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__mobile-link {
+		display: block;
+		padding: 14px $spacing-lg;
+		font-family: $font-body;
+		font-size: $body-size-desktop;
+		font-weight: $font-weight-medium;
+		color: $foreground;
+		border-bottom: 1px solid $border;
+		transition: $transition-smooth;
+
+		&:hover {
+			background-color: $muted;
+			color: $coral;
+		}
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+}
