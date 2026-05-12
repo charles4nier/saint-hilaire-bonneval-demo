@@ -11,7 +11,6 @@ const CLASS_NAME = 'header';
 const navLinks = [
 	{ label: 'La mairie', href: '#' },
 	{ label: 'Vivre à Saint-Hilaire-Bonneval', href: '#' },
-	{ label: 'Démarches', href: '#demarches' },
 	{ label: 'Tourisme & Patrimoine', href: '#decouvrir' },
 	{ label: 'Vie associative', href: '#' },
 	{ label: 'Contact', href: '#contact' }
@@ -36,7 +35,7 @@ export default function Header() {
 	}, [isOpen]);
 
 	return (
-		<header className={`${CLASS_NAME} ${isScrolled ? 'scrolled' : ''}`}>
+		<header className={`${CLASS_NAME} scrolled`}>
 			<div className={`${CLASS_NAME}__inner container`}>
 				<Link href="/" className={`${CLASS_NAME}__logo`}>
 					<div className={`${CLASS_NAME}__logo-badge`}>
