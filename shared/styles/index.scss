@@ -35,6 +35,7 @@ body {
 	background-color: $background;
 	color: $foreground;
 	font-family: $font-body;
+	font-feature-settings: "ss01", "cv11";
 	-webkit-font-smoothing: antialiased;
 }
 

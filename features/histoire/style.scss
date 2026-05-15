@@ -82,9 +82,9 @@ $b: 'histoire';
 
 .#{$b}__title {
 	font-family: $font-display;
-	font-size: clamp(36px, 6vw, 64px);
+	font-size: clamp(36px, 6vw, 60px);
 	font-weight: $font-weight-semibold;
-	line-height: $line-height-tight;
+	line-height: $line-height-snug;
 	color: #ffffff;
 	margin-top: $spacing-md;
 }
@@ -103,15 +103,15 @@ $b: 'histoire';
 
 .#{$b}__subtitle-upper {
 	font-family: $font-display;
-	font-size: clamp(18px, 2.5vw, 26px);
+	font-size: clamp(24px, 3vw, 30px);
 	text-transform: uppercase;
-	letter-spacing: 0.06em;
+	letter-spacing: 0.025em;
 	color: $sunshine;
 }
 
 .#{$b}__subtitle-script {
 	font-family: $font-script;
-	font-size: clamp(26px, 3.5vw, 40px);
+	font-size: clamp(30px, 4vw, 36px);
 }
 
 /* ========================

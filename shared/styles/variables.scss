@@ -109,9 +109,9 @@ $container-padding-x-mobile:   $spacing-lg;
    📝 Typographie
    ========================= */
 
-$font-display: var(--font-fraunces), Georgia, serif;
-$font-body:    var(--font-inter), system-ui, sans-serif;
-$font-script:  var(--font-caveat), cursive;
+$font-display: Georgia, serif;
+$font-body:    system-ui, sans-serif;
+$font-script:  var(--font-script), cursive;
 
 $font-weight-regular:  400;
 $font-weight-medium:   500;

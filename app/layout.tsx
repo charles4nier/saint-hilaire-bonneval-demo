@@ -1,4 +1,4 @@
-import { Inter, Fraunces, Caveat } from 'next/font/google';
+import { Caveat, Cormorant } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import { defaultMetadata } from '@shared/config/seo';
 
@@ -8,20 +8,13 @@ import Header from '@shared/components/Header';
 import Footer from '@shared/components/Footer';
 import FloatingButtons from '@shared/components/FloatingButtons';
 
-export const inter = Inter({
+export const cormorant = Cormorant({
 	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700'],
-	variable: '--font-inter',
+	weight: ['400', '500', '600', '700'],
+	style: ['normal', 'italic'],
+	variable: '--font-script',
 	display: 'swap',
-	preload: true
-});
-
-export const fraunces = Fraunces({
-	subsets: ['latin'],
-	weight: ['400', '500', '600', '700', '800'],
-	variable: '--font-fraunces',
-	display: 'swap',
-	preload: true
+	preload: false
 });
 
 export const caveat = Caveat({
@@ -42,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="fr" className={`${inter.variable} ${fraunces.variable} ${caveat.variable}`}>
+		<html lang="fr" className={`${cormorant.variable} ${caveat.variable}`}>
 			<body>
 				<Header />
 				<main>{children}</main>
