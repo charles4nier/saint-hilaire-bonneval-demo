@@ -99,6 +99,7 @@
 	&__nav-link {
 		display: inline-flex;
 		align-items: center;
+		gap: 4px;
 		padding: 8px 12px;
 		font-family: $font-body;
 		font-size: 13px;
@@ -120,6 +121,64 @@
 				color: $coral;
 				border-bottom-color: $coral;
 			}
+		}
+	}
+
+	/* ---- Dropdown desktop ---- */
+
+	&__dropdown {
+		position: relative;
+
+		&:hover .header__submenu {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(-50%) translateY(0);
+			pointer-events: auto;
+		}
+
+		&:hover .header__chevron {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__chevron {
+		transition: transform 0.25s $ease-smooth;
+		flex-shrink: 0;
+	}
+
+	&__submenu {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-6px);
+		min-width: 220px;
+		background: $card;
+		border: 1px solid $border;
+		box-shadow: $shadow-soft;
+		z-index: 60;
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition:
+			opacity 0.2s $ease-smooth,
+			transform 0.2s $ease-smooth,
+			visibility 0.2s $ease-smooth;
+	}
+
+	&__submenu-link {
+		display: block;
+		padding: 12px 20px;
+		font-family: $font-body;
+		font-size: $small-size-desktop;
+		font-weight: $font-weight-medium;
+		color: $foreground;
+		transition: $transition-smooth;
+		white-space: nowrap;
+
+		&:hover {
+			background: $muted;
+			color: $coral;
 		}
 	}
 
@@ -196,7 +255,10 @@
 	}
 
 	&__mobile-link {
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
 		padding: 14px $spacing-lg;
 		font-family: $font-body;
 		font-size: $body-size-desktop;
@@ -204,14 +266,39 @@
 		color: $foreground;
 		border-bottom: 1px solid $border;
 		transition: $transition-smooth;
+		text-align: left;
 
 		&:hover {
 			background-color: $muted;
 			color: $coral;
 		}
 
-		&:last-child {
-			border-bottom: none;
+		&--parent {
+			cursor: pointer;
+		}
+	}
+
+	&__mobile-group {
+		border-bottom: 1px solid $border;
+	}
+
+	&__mobile-sub {
+		background: $muted;
+	}
+
+	&__mobile-sublink {
+		display: block;
+		padding: 12px $spacing-lg 12px ($spacing-lg + 16px);
+		font-family: $font-body;
+		font-size: $small-size-desktop;
+		font-weight: $font-weight-medium;
+		color: $foreground-80;
+		border-top: 1px solid $border;
+		transition: $transition-smooth;
+
+		&:hover {
+			color: $coral;
+			background: $secondary;
 		}
 	}
 }
