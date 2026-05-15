@@ -9,7 +9,7 @@ export default function Footer() {
 
 	return (
 		<footer className={CLASS_NAME}>
-			<div className={`${CLASS_NAME}__inner container`}>
+			<div className={`${CLASS_NAME}__inner`}>
 				<div className={`${CLASS_NAME}__grid`}>
 					<div className={`${CLASS_NAME}__brand`}>
 						<div className={`${CLASS_NAME}__brand-logo`}>
