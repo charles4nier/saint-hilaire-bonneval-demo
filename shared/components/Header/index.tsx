@@ -46,7 +46,6 @@ const navLinks: NavLink[] = [
 		],
 	},
 	{ label: 'Mes démarches', href: '/#demarches' },
-	{ label: 'Contact', href: '/#contact' },
 ];
 
 function DropdownItem({ link }: { link: NavLink }) {

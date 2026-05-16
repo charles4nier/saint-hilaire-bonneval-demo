@@ -8,7 +8,7 @@ import Header from '@shared/components/Header';
 import Footer from '@shared/components/Footer';
 import FloatingButtons from '@shared/components/FloatingButtons';
 
-export const cormorant = Cormorant({
+const cormorant = Cormorant({
 	subsets: ['latin'],
 	weight: ['400', '500', '600', '700'],
 	style: ['normal', 'italic'],
@@ -17,7 +17,7 @@ export const cormorant = Cormorant({
 	preload: false
 });
 
-export const caveat = Caveat({
+const caveat = Caveat({
 	subsets: ['latin'],
 	weight: ['500', '600', '700'],
 	variable: '--font-caveat',

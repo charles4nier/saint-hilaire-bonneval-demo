@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import './style.scss';
 
@@ -9,20 +10,23 @@ const cards = [
 		src: '/saint-hilaire-bonneval-lake.jpg',
 		tag: 'Nature',
 		title: "Nos étangs et plans d'eau",
-		desc: "Pêche, baignade et balades au fil de l'eau dans un cadre préservé."
+		desc: "Pêche, baignade et balades au fil de l'eau dans un cadre préservé.",
+		href: '/tourisme/carte-interactive?id=etang-bonneval',
 	},
 	{
 		src: '/saint-hilaire-bonneval-forest.jpg',
 		tag: 'Randonnée',
 		title: 'Sentiers du Limousin',
-		desc: 'Plus de 40 km de chemins balisés à travers forêts et bocages.'
+		desc: 'Plus de 40 km de chemins balisés à travers forêts et bocages.',
+		href: '/tourisme/carte-interactive?id=sentier-cretes',
 	},
 	{
 		src: '/saint-hilaire-bonneval-village.jpg',
 		tag: 'Patrimoine',
 		title: "L'âme du village",
-		desc: "Église, lavoirs, croix de chemin : un héritage qui se raconte."
-	}
+		desc: "Église, lavoirs, croix de chemin : un héritage qui se raconte.",
+		href: '/tourisme/carte-interactive?id=eglise',
+	},
 ];
 
 export default function Discover() {
@@ -48,7 +52,7 @@ export default function Discover() {
 							key={card.title}
 							className={`${CLASS_NAME}__card ${i === 0 ? `${CLASS_NAME}__card--featured` : ''}`}
 						>
-							<div className={`${CLASS_NAME}__card-image-wrap`}>
+							<Link href={card.href} className={`${CLASS_NAME}__card-image-wrap`}>
 								<Image
 									src={card.src}
 									alt={card.title}
@@ -63,10 +67,10 @@ export default function Discover() {
 									<h3 className={`${CLASS_NAME}__card-title`}>{card.title}</h3>
 									<p className={`${CLASS_NAME}__card-desc`}>{card.desc}</p>
 									<div className={`${CLASS_NAME}__card-link`}>
-										En savoir plus <ArrowRight size={16} />
+										Voir sur la carte <ArrowRight size={16} />
 									</div>
 								</div>
-							</div>
+							</Link>
 						</article>
 					))}
 				</div>
