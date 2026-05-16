@@ -5,8 +5,8 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, GeoJSON, useMap } fro
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
-import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
+import 'react-leaflet-cluster/lib/assets/MarkerCluster.css';
+import 'react-leaflet-cluster/lib/assets/MarkerCluster.Default.css';
 import { Plus, Minus } from 'lucide-react';
 import { pois, sentiers } from './data';
 import './style.scss';
