@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
 	ChevronRight,
@@ -234,6 +234,19 @@ const filters: ('Tous' | Category)[] = [
 
 export default function CommercesPage() {
 	const [active, setActive] = useState<(typeof filters)[number]>('Tous');
+	const [stuck, setStuck] = useState(false);
+	const sentinelRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const sentinel = sentinelRef.current;
+		if (!sentinel) return;
+		const observer = new IntersectionObserver(
+			([entry]) => setStuck(!entry.isIntersecting),
+			{ rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+		);
+		observer.observe(sentinel);
+		return () => observer.disconnect();
+	}, []);
 
 	const filtered = useMemo(
 		() => (active === 'Tous' ? commerces : commerces.filter((c) => c.category === active)),
@@ -284,7 +297,8 @@ export default function CommercesPage() {
 					</div>
 
 					{/* Filtres */}
-					<div className={`${CLASS_NAME}__filters`}>
+					<div ref={sentinelRef} style={{ height: 1, marginBottom: -1 }} />
+					<div className={`${CLASS_NAME}__filters${stuck ? ` ${CLASS_NAME}__filters--stuck` : ''}`}>
 						{filters.map((f) => {
 							const isActive = f === active;
 							const count = counts[f as Category | 'Tous'] ?? 0;

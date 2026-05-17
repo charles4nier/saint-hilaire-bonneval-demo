@@ -17,11 +17,7 @@ const navLinks: NavLink[] = [
 		href: '#',
 		children: [
 			{ label: 'Le maire & les élus', href: '/mairie/maire-elus' },
-			{ label: 'Conseil municipal', href: '/mairie/conseil-municipal' },
-			{ label: 'Comptes-rendus', href: '/mairie/comptes-rendus' },
-			{ label: 'Services municipaux', href: '/mairie/services-municipaux' },
-			{ label: 'Urbanisme', href: '/mairie/urbanisme' },
-			{ label: 'Publications', href: '/mairie/publications' },
+			{ label: 'Documents & publications', href: '/mairie/publications' },
 			{ label: 'Horaires & informations', href: '/mairie/horaires' },
 			{ label: 'Budget & projets', href: '/mairie/budget-projets' },
 		],

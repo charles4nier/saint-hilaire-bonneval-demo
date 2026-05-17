@@ -45,7 +45,7 @@ export default function Footer() {
 					<div className={`${CLASS_NAME}__col`}>
 						<h4 className={`${CLASS_NAME}__col-title`}>La mairie</h4>
 						<ul className={`${CLASS_NAME}__col-links`}>
-							<li><a href="#">Le conseil municipal</a></li>
+
 							<li><a href="#">Délibérations & arrêtés</a></li>
 							<li><a href="#">Démarches en ligne</a></li>
 							<li><a href="#">Marchés publics</a></li>

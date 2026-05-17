@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'commerces';
+$b: 'documents';
 
 /* ========================
    Hero
@@ -59,9 +59,7 @@ $b: 'commerces';
 	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: $spacing-lg;
 
-	a:hover {
-		color: #ffffff;
-	}
+	a:hover { color: #ffffff; }
 }
 
 .#{$b}__eyebrow {
@@ -100,7 +98,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Section annuaire
+   Section
    ======================== */
 
 .#{$b}__section {
@@ -121,7 +119,7 @@ $b: 'commerces';
 	font-weight: $font-weight-bold;
 	text-transform: uppercase;
 	letter-spacing: 0.22em;
-	color: $leaf;
+	color: $primary;
 }
 
 .#{$b}__header-title {
@@ -141,7 +139,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Filtres
+   Filtres (sticky)
    ======================== */
 
 .#{$b}__filters {
@@ -150,7 +148,7 @@ $b: 'commerces';
 	z-index: 10;
 	background: $background;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	gap: $spacing-sm;
 	padding-top: $spacing-lg;
 	padding-bottom: $spacing-lg;
@@ -170,13 +168,8 @@ $b: 'commerces';
 		transition: border-color 0.2s ease;
 	}
 
-	&::before {
-		right: 100%;
-	}
-
-	&::after {
-		left: 100%;
-	}
+	&::before { right: 100%; }
+	&::after  { left: 100%; }
 
 	&--stuck {
 		border-bottom-color: $border;
@@ -186,6 +179,12 @@ $b: 'commerces';
 			border-bottom-color: $border;
 		}
 	}
+}
+
+.#{$b}__filters-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: $spacing-sm;
 }
 
 .#{$b}__filter {
@@ -202,6 +201,10 @@ $b: 'commerces';
 	cursor: pointer;
 	transition: $transition-smooth;
 
+	&--year {
+		font-variant-numeric: tabular-nums;
+	}
+
 	&:hover {
 		border-color: $leaf;
 		color: $leaf;
@@ -216,9 +219,7 @@ $b: 'commerces';
 			color: rgba(255, 255, 255, 0.6);
 		}
 
-		&:hover {
-			color: $background;
-		}
+		&:hover { color: $background; }
 	}
 }
 
@@ -229,13 +230,13 @@ $b: 'commerces';
 }
 
 /* ========================
-   Grille de cartes
+   Grille de documents
    ======================== */
 
 .#{$b}__grid {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: $spacing-xl;
+	gap: $spacing-md;
 
 	@media (min-width: $breakpoint-sm) {
 		grid-template-columns: 1fr 1fr;
@@ -247,14 +248,25 @@ $b: 'commerces';
 }
 
 .#{$b}__card {
-	background: #ffffff;
-	padding: $spacing-xl;
 	display: flex;
-	flex-direction: column;
+	align-items: center;
+	gap: $spacing-lg;
+	padding: $spacing-xl;
+	background: #ffffff;
+	border: 1px solid $border;
+	cursor: pointer;
 	transition: $transition-smooth;
+	text-decoration: none;
+	color: inherit;
 
 	&:hover {
+		border-color: $primary;
 		box-shadow: $shadow-soft;
+
+		.#{$b}__card-download {
+			color: $primary;
+			opacity: 1;
+		}
 	}
 }
 
@@ -266,34 +278,22 @@ $b: 'commerces';
 	justify-content: center;
 	flex-shrink: 0;
 
-	&--leaf {
-		color: $leaf;
-		background: $leaf-15;
-	}
-
-	&--coral {
-		color: $coral;
-		background: $coral-15;
-	}
-
-	&--terracotta {
-		color: $terracotta;
-		background: $sunshine-25;
-	}
-
-	&--primary {
-		color: $primary;
-		background: $primary-10;
-	}
-
-	&--muted {
-		color: $foreground;
-		background: $secondary;
-	}
+	&--primary    { color: $primary;     background: $primary-10; }
+	&--coral      { color: $coral;       background: $coral-15; }
+	&--leaf       { color: $leaf;        background: $leaf-15; }
+	&--terracotta { color: $terracotta;  background: $sunshine-25; }
+	&--muted      { color: $foreground;  background: $secondary; }
 }
 
-.#{$b}__card-category {
-	margin-top: $spacing-lg;
+.#{$b}__card-body {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.#{$b}__card-type {
 	font-size: 10px;
 	font-weight: $font-weight-semibold;
 	text-transform: uppercase;
@@ -301,110 +301,35 @@ $b: 'commerces';
 	color: $muted-foreground;
 }
 
-.#{$b}__card-name {
-	font-family: $font-display;
-	font-size: 18px;
-	font-weight: $font-weight-semibold;
-	line-height: $line-height-snug;
-	color: $foreground;
-	margin-top: $spacing-sm;
-}
-
-.#{$b}__card-desc {
-	margin-top: $spacing-md;
+.#{$b}__card-title {
 	font-size: $small-size-desktop;
-	color: $foreground-80;
-	line-height: $line-height-relaxed;
+	font-weight: $font-weight-medium;
+	color: $foreground;
+	line-height: $line-height-snug;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.#{$b}__card-contacts {
-	margin-top: auto;
-	padding-top: $spacing-lg;
-	border-top: 1px solid $border;
-	margin-top: $spacing-xl;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.#{$b}__card-contact {
-	display: flex;
-	align-items: flex-start;
-	gap: $spacing-sm;
+.#{$b}__card-date {
 	font-size: 12px;
 	color: $muted-foreground;
-	line-height: $line-height-relaxed;
 }
 
-.#{$b}__contact-icon {
+.#{$b}__card-download {
+	color: $muted-foreground;
+	opacity: 0.4;
 	flex-shrink: 0;
-	margin-top: 2px;
-	color: $leaf;
-}
-
-.#{$b}__contact-link {
 	transition: $transition-smooth;
-	word-break: break-all;
-
-	&:hover {
-		color: $coral;
-	}
 }
 
 /* ========================
-   Encart référencement
+   État vide
    ======================== */
 
-.#{$b}__cta-banner {
-	margin-top: $spacing-5xl;
-	background: $leaf-15;
-	border-left: 4px solid $leaf;
-	padding: $spacing-3xl;
-	box-shadow: $shadow-soft;
-	display: grid;
-	gap: $spacing-lg;
-	align-items: center;
-
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr auto;
-		padding: $spacing-3xl $spacing-4xl;
-	}
-}
-
-.#{$b}__cta-eyebrow {
-	font-size: $xs-size-desktop;
-	font-weight: $font-weight-bold;
-	text-transform: uppercase;
-	letter-spacing: 0.22em;
-	color: $leaf;
-}
-
-.#{$b}__cta-title {
-	font-family: $font-display;
-	font-size: clamp(18px, 2vw, 24px);
-	font-weight: $font-weight-semibold;
-	line-height: $line-height-snug;
-	margin-top: $spacing-sm;
-	color: $foreground;
-}
-
-.#{$b}__cta-desc {
-	margin-top: $spacing-sm;
+.#{$b}__empty {
+	padding: $spacing-5xl 0;
+	text-align: center;
+	color: $muted-foreground;
 	font-size: $small-size-desktop;
-	color: $foreground-80;
-	line-height: $line-height-relaxed;
-	max-width: 640px;
-}
-
-.#{$b}__cta-btn {
-	background-color: $leaf;
-	align-self: flex-start;
-
-	@media (min-width: $breakpoint-sm) {
-		align-self: center;
-	}
-
-	&:hover {
-		background-color: oklch(0.54 0.16 150);
-	}
 }

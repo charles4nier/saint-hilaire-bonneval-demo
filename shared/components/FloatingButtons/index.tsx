@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
 	Phone,
 	MessageCircle,
@@ -174,6 +175,8 @@ function BotModal({ onClose }: { onClose: () => void }) {
 
 export default function FloatingButtons() {
 	const [activeModal, setActiveModal] = useState<Modal>(null);
+	const pathname = usePathname();
+	const isOnMap = pathname === '/tourisme/carte-interactive';
 
 	const toggle = (modal: Modal) =>
 		setActiveModal((prev) => (prev === modal ? null : modal));
@@ -188,13 +191,15 @@ export default function FloatingButtons() {
 			{activeModal === 'bot' && <BotModal onClose={() => setActiveModal(null)} />}
 
 			<div className={`${CLASS_NAME}__buttons`}>
-				<Link
-					href="/tourisme/carte-interactive"
-					className={`${CLASS_NAME}__btn ${CLASS_NAME}__btn--sunshine`}
-					title="Carte interactive"
-				>
-					<Map size={20} />
-				</Link>
+				{!isOnMap && (
+					<Link
+						href="/tourisme/carte-interactive"
+						className={`${CLASS_NAME}__btn ${CLASS_NAME}__btn--sunshine`}
+						title="Carte interactive"
+					>
+						<Map size={20} />
+					</Link>
+				)}
 				<button
 					className={`${CLASS_NAME}__btn ${CLASS_NAME}__btn--coral`}
 					onClick={() => toggle('bot')}
