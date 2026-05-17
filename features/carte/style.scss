@@ -11,6 +11,13 @@ $header-h: 80px;
 	margin-top: $header-h;
 	height: calc(100vh - #{$header-h});
 	display: flex;
+
+	@media (max-width: $breakpoint-sm) {
+		height: auto;
+		min-height: calc(100dvh - #{$header-h});
+		flex-direction: column;
+		background: $gradient-primary;
+	}
 }
 
 /* ========================
@@ -35,6 +42,56 @@ $header-h: 80px;
 	@media (max-width: $breakpoint-sm) {
 		display: none;
 	}
+}
+
+/* ========================
+   Mobile toolbar
+   ======================== */
+
+.carte__mobile-toolbar {
+	display: none;
+
+	@media (max-width: $breakpoint-sm) {
+		display: flex;
+		align-items: center;
+		padding: $spacing-lg $spacing-lg $spacing-md;
+		flex-shrink: 0;
+	}
+}
+
+.carte__panel-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: $spacing-sm;
+	padding: 10px 18px;
+	background: $background;
+	border: 1px solid $border;
+	border-radius: 999px;
+	font-size: 13px;
+	font-weight: $font-weight-medium;
+	color: $foreground;
+	cursor: pointer;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	transition: $transition-smooth;
+
+	&:hover {
+		border-color: $primary;
+		color: $primary;
+	}
+}
+
+.carte__panel-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: $primary;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: $font-weight-bold;
 }
 
 .carte__sidebar-header {
@@ -244,6 +301,17 @@ $header-h: 80px;
 	position: relative;
 	height: 100%;
 	isolation: isolate;
+
+	@media (max-width: $breakpoint-sm) {
+		flex: none;
+		width: 85vw;
+		height: calc((100dvh - #{$header-h} - 60px) * 0.9);
+		margin: 0 auto $spacing-xl;
+		border-radius: 12px;
+		overflow: hidden;
+		isolation: isolate;
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+	}
 }
 
 .carte__map {
@@ -251,7 +319,7 @@ $header-h: 80px;
 	height: 100%;
 }
 
-/* ---- Boutons zoom + style ---- */
+/* ---- Boutons zoom ---- */
 
 .carte__controls {
 	position: absolute;
@@ -261,6 +329,12 @@ $header-h: 80px;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+
+	@media (max-width: $breakpoint-sm) {
+		bottom: auto;
+		top: 50%;
+		transform: translateY(-50%);
+	}
 }
 
 .carte__zoom-btns {
@@ -402,4 +476,116 @@ $header-h: 80px;
 	font-size: 11px;
 	font-weight: $font-weight-medium;
 	color: $foreground-80;
+}
+
+/* ========================
+   Panneau coulissant mobile
+   ======================== */
+
+.carte__mobile-panel {
+	display: none;
+
+	@media (max-width: $breakpoint-sm) {
+		display: flex;
+		flex-direction: column;
+		position: fixed;
+		top: $header-h;
+		left: 0;
+		width: min(85vw, 360px);
+		height: calc(100dvh - #{$header-h});
+		background: $background;
+		z-index: 140;
+		transform: translateX(-100%);
+		transition: transform 0.4s $ease-smooth;
+		box-shadow: 4px 0 40px rgba(0, 0, 0, 0.12);
+
+		&--open {
+			transform: translateX(0);
+		}
+	}
+}
+
+.carte__mobile-panel-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: $spacing-xl $spacing-xl $spacing-lg;
+	border-bottom: 1px solid $border;
+	flex-shrink: 0;
+}
+
+.carte__mobile-panel-title {
+	font-family: $font-display;
+	font-size: 18px;
+	font-weight: $font-weight-semibold;
+	color: $foreground;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+	margin-top: 2px;
+}
+
+.carte__mobile-panel-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: $muted-foreground;
+	transition: $transition-smooth;
+	flex-shrink: 0;
+
+	&:hover {
+		color: $foreground;
+	}
+}
+
+.carte__mobile-panel-body {
+	flex: 1;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+
+	.carte__sidebar-list {
+		flex: 1;
+	}
+
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: $border;
+		border-radius: 999px;
+	}
+}
+
+/* ========================
+   Overlay mobile
+   ======================== */
+
+.carte__mobile-overlay {
+	display: none;
+
+	@media (max-width: $breakpoint-sm) {
+		display: block;
+		position: fixed;
+		top: $header-h;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		z-index: 130;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s $ease-smooth;
+
+		&--visible {
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
 }

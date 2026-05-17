@@ -7,7 +7,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.Default.css';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, SlidersHorizontal, X } from 'lucide-react';
 import { pois, sentiers } from './data';
 import './style.scss';
 
@@ -141,6 +141,7 @@ export default function MapClient({ initialId }: Props) {
 		sentier: true,
 	});
 	const [selectedId, setSelectedId] = useState<string | undefined>(initialId);
+	const [panelOpen, setPanelOpen] = useState(false);
 	const markerRefs = useRef<Map<string, L.Marker>>(new Map());
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null);
@@ -161,203 +162,259 @@ export default function MapClient({ initialId }: Props) {
 
 	const visiblePois = pois.filter((p) => filters[p.category]);
 	const visibleSentiers = sentiers.filter(() => filters.sentier);
+	const activeFiltersCount = Object.values(filters).filter((v) => !v).length;
 
-	const handleSelectPoi = (id: string) => setSelectedId(id);
+	const handleSelectPoi = (id: string) => {
+		setSelectedId(id);
+		setPanelOpen(false);
+	};
 
-	return (
-		<div className="carte">
-			{/* ---- Sidebar ---- */}
-			<aside className="carte__sidebar">
-				<div className="carte__sidebar-header">
-					<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
-					<h1 className="carte__sidebar-title">Explorer la commune</h1>
-				</div>
+	/* ---- Contenu partagé sidebar / panneau mobile ---- */
 
-				<div className="carte__sidebar-filters">
-					<div className="carte__sidebar-section-label">Afficher</div>
-					<div className="carte__filter-group">
-						<button
-							className={`carte__filter ${filters.hebergement ? 'carte__filter--active' : ''}`}
-							onClick={() => toggle('hebergement')}
-						>
-							<span className="carte__filter-dot" style={{ background: COLORS.hebergement }} />
-							Hébergements
-							<span className="carte__filter-count">
-								{pois.filter((p) => p.category === 'hebergement').length}
-							</span>
-						</button>
-						<button
-							className={`carte__filter ${filters['site-visite'] ? 'carte__filter--active' : ''}`}
-							onClick={() => toggle('site-visite')}
-						>
-							<span className="carte__filter-dot" style={{ background: COLORS['site-visite'] }} />
-							Sites de visite
-							<span className="carte__filter-count">
-								{pois.filter((p) => p.category === 'site-visite').length}
-							</span>
-						</button>
-						<button
-							className={`carte__filter ${filters.sentier ? 'carte__filter--active' : ''}`}
-							onClick={() => toggle('sentier')}
-						>
-							<span className="carte__filter-dot" style={{ background: '#555' }} />
-							Sentiers
-							<span className="carte__filter-count">{sentiers.length}</span>
-						</button>
-					</div>
-				</div>
-
-				<div className="carte__sidebar-list">
-					{visiblePois.length > 0 && (
-						<>
-							<div className="carte__sidebar-section-label">
-								{visiblePois.length} lieu{visiblePois.length > 1 ? 'x' : ''}
-							</div>
-							{visiblePois.map((poi) => (
-								<button
-									key={poi.id}
-									className={`carte__poi-card ${selectedId === poi.id ? 'carte__poi-card--selected' : ''}`}
-									onClick={() => handleSelectPoi(poi.id)}
-								>
-									<div className="carte__poi-thumb">
-										<img src={poi.image} alt={poi.name} />
-									</div>
-									<div className="carte__poi-info">
-										<span
-											className="carte__poi-badge"
-											style={{ color: COLORS[poi.category] }}
-										>
-											{LABELS[poi.category]}
-										</span>
-										<div className="carte__poi-name">{poi.name}</div>
-										<div className="carte__poi-desc">{poi.description}</div>
-									</div>
-								</button>
-							))}
-						</>
-					)}
-
-					{visibleSentiers.length > 0 && (
-						<>
-							<div className="carte__sidebar-section-label" style={{ marginTop: 8 }}>
-								{visibleSentiers.length} sentier{visibleSentiers.length > 1 ? 's' : ''}
-							</div>
-							{visibleSentiers.map((s) => (
-								<div key={s.id} className="carte__poi-card">
-									<div className="carte__poi-thumb">
-										<img src={s.image} alt={s.name} />
-									</div>
-									<div className="carte__poi-info">
-										<span className="carte__poi-badge" style={{ color: '#555' }}>
-											Sentier
-										</span>
-										<div className="carte__poi-name">{s.name}</div>
-										<div className="carte__poi-meta">
-											<span>{s.distance}</span>
-											<span>{s.duration}</span>
-										</div>
-									</div>
-								</div>
-							))}
-						</>
-					)}
-				</div>
-			</aside>
-
-			{/* ---- Carte ---- */}
-			<div className="carte__map-wrap">
-				<MapContainer
-					center={CENTER}
-					zoom={DEFAULT_ZOOM}
-					className="carte__map"
-					zoomControl={false}
-					scrollWheelZoom={false}
+	const filtersSection = (
+		<div className="carte__sidebar-filters">
+			<div className="carte__sidebar-section-label">Afficher</div>
+			<div className="carte__filter-group">
+				<button
+					className={`carte__filter ${filters.hebergement ? 'carte__filter--active' : ''}`}
+					onClick={() => toggle('hebergement')}
 				>
-					<TileLayer
-						url={TILES.plan.url}
-						attribution={TILES.plan.attribution}
-						maxZoom={TILES.plan.maxZoom}
-					/>
-					<FlyTo id={selectedId} markersRef={markerRefs} />
-					<FitCommune geoJSON={communeGeoJSON} skip={!!initialId} />
-					<MapControls />
-
-					{communeGeoJSON && (
-						<GeoJSON
-							key="commune"
-							data={communeGeoJSON}
-							style={{
-								color: '#3b5fc0',
-								weight: 2.5,
-								opacity: 0.9,
-								fillColor: '#3b5fc0',
-								fillOpacity: 0.06,
-							}}
-						/>
-					)}
-
-					<MarkerClusterGroup
-						chunkedLoading
-						iconCreateFunction={createClusterIcon}
-						maxClusterRadius={60}
-						showCoverageOnHover={false}
-					>
-						{visiblePois.map((poi) => (
-							<Marker
-								key={poi.id}
-								position={[poi.lat, poi.lng]}
-								icon={createMarkerIcon(COLORS[poi.category], selectedId === poi.id)}
-								eventHandlers={{ click: () => handleSelectPoi(poi.id) }}
-								ref={(instance) => {
-									if (instance) markerRefs.current.set(poi.id, instance);
-									else markerRefs.current.delete(poi.id);
-								}}
-							>
-								<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
-									<div className="carte__popup">
-										<div className="carte__popup-photo">
-											<img src={poi.image} alt={poi.name} className="carte__popup-img" />
-											<span
-												className="carte__popup-badge"
-												style={{ background: COLORS[poi.category] }}
-											>
-												{LABELS[poi.category]}
-											</span>
-										</div>
-										<div className="carte__popup-body">
-											<div className="carte__popup-name">{poi.name}</div>
-											<div className="carte__popup-desc">{poi.description}</div>
-										</div>
-									</div>
-								</Popup>
-							</Marker>
-						))}
-					</MarkerClusterGroup>
-
-					{visibleSentiers.map((s) => (
-						<Polyline key={s.id} positions={s.coordinates} color="#444" weight={3} opacity={0.85} dashArray="8 6">
-							<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
-								<div className="carte__popup">
-									<div className="carte__popup-photo">
-										<img src={s.image} alt={s.name} className="carte__popup-img" />
-										<span className="carte__popup-badge" style={{ background: '#555' }}>
-											Sentier
-										</span>
-									</div>
-									<div className="carte__popup-body">
-										<div className="carte__popup-name">{s.name}</div>
-										<div className="carte__popup-desc">{s.description}</div>
-										<div className="carte__popup-meta">
-											<span className="carte__popup-tag">{s.distance}</span>
-											<span className="carte__popup-tag">{s.duration}</span>
-										</div>
-									</div>
-								</div>
-							</Popup>
-						</Polyline>
-					))}
-				</MapContainer>
+					<span className="carte__filter-dot" style={{ background: COLORS.hebergement }} />
+					Hébergements
+					<span className="carte__filter-count">
+						{pois.filter((p) => p.category === 'hebergement').length}
+					</span>
+				</button>
+				<button
+					className={`carte__filter ${filters['site-visite'] ? 'carte__filter--active' : ''}`}
+					onClick={() => toggle('site-visite')}
+				>
+					<span className="carte__filter-dot" style={{ background: COLORS['site-visite'] }} />
+					Sites de visite
+					<span className="carte__filter-count">
+						{pois.filter((p) => p.category === 'site-visite').length}
+					</span>
+				</button>
+				<button
+					className={`carte__filter ${filters.sentier ? 'carte__filter--active' : ''}`}
+					onClick={() => toggle('sentier')}
+				>
+					<span className="carte__filter-dot" style={{ background: '#555' }} />
+					Sentiers
+					<span className="carte__filter-count">{sentiers.length}</span>
+				</button>
 			</div>
 		</div>
+	);
+
+	const listSection = (
+		<div className="carte__sidebar-list">
+			{visiblePois.length > 0 && (
+				<>
+					<div className="carte__sidebar-section-label">
+						{visiblePois.length} lieu{visiblePois.length > 1 ? 'x' : ''}
+					</div>
+					{visiblePois.map((poi) => (
+						<button
+							key={poi.id}
+							className={`carte__poi-card ${selectedId === poi.id ? 'carte__poi-card--selected' : ''}`}
+							onClick={() => handleSelectPoi(poi.id)}
+						>
+							<div className="carte__poi-thumb">
+								<img src={poi.image} alt={poi.name} />
+							</div>
+							<div className="carte__poi-info">
+								<span className="carte__poi-badge" style={{ color: COLORS[poi.category] }}>
+									{LABELS[poi.category]}
+								</span>
+								<div className="carte__poi-name">{poi.name}</div>
+								<div className="carte__poi-desc">{poi.description}</div>
+							</div>
+						</button>
+					))}
+				</>
+			)}
+
+			{visibleSentiers.length > 0 && (
+				<>
+					<div className="carte__sidebar-section-label" style={{ marginTop: 8 }}>
+						{visibleSentiers.length} sentier{visibleSentiers.length > 1 ? 's' : ''}
+					</div>
+					{visibleSentiers.map((s) => (
+						<div key={s.id} className="carte__poi-card">
+							<div className="carte__poi-thumb">
+								<img src={s.image} alt={s.name} />
+							</div>
+							<div className="carte__poi-info">
+								<span className="carte__poi-badge" style={{ color: '#555' }}>
+									Sentier
+								</span>
+								<div className="carte__poi-name">{s.name}</div>
+								<div className="carte__poi-meta">
+									<span>{s.distance}</span>
+									<span>{s.duration}</span>
+								</div>
+							</div>
+						</div>
+					))}
+				</>
+			)}
+		</div>
+	);
+
+	const mapContent = (
+		<MapContainer
+			center={CENTER}
+			zoom={DEFAULT_ZOOM}
+			className="carte__map"
+			zoomControl={false}
+			scrollWheelZoom={false}
+		>
+			<TileLayer
+				url={TILES.plan.url}
+				attribution={TILES.plan.attribution}
+				maxZoom={TILES.plan.maxZoom}
+			/>
+			<FlyTo id={selectedId} markersRef={markerRefs} />
+			<FitCommune geoJSON={communeGeoJSON} skip={!!initialId} />
+			<MapControls />
+
+			{communeGeoJSON && (
+				<GeoJSON
+					key="commune"
+					data={communeGeoJSON}
+					style={{
+						color: '#3b5fc0',
+						weight: 2.5,
+						opacity: 0.9,
+						fillColor: '#3b5fc0',
+						fillOpacity: 0.06,
+					}}
+				/>
+			)}
+
+			<MarkerClusterGroup
+				chunkedLoading
+				iconCreateFunction={createClusterIcon}
+				maxClusterRadius={60}
+				showCoverageOnHover={false}
+			>
+				{visiblePois.map((poi) => (
+					<Marker
+						key={poi.id}
+						position={[poi.lat, poi.lng]}
+						icon={createMarkerIcon(COLORS[poi.category], selectedId === poi.id)}
+						eventHandlers={{ click: () => handleSelectPoi(poi.id) }}
+						ref={(instance) => {
+							if (instance) markerRefs.current.set(poi.id, instance);
+							else markerRefs.current.delete(poi.id);
+						}}
+					>
+						<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
+							<div className="carte__popup">
+								<div className="carte__popup-photo">
+									<img src={poi.image} alt={poi.name} className="carte__popup-img" />
+									<span
+										className="carte__popup-badge"
+										style={{ background: COLORS[poi.category] }}
+									>
+										{LABELS[poi.category]}
+									</span>
+								</div>
+								<div className="carte__popup-body">
+									<div className="carte__popup-name">{poi.name}</div>
+									<div className="carte__popup-desc">{poi.description}</div>
+								</div>
+							</div>
+						</Popup>
+					</Marker>
+				))}
+			</MarkerClusterGroup>
+
+			{visibleSentiers.map((s) => (
+				<Polyline
+					key={s.id}
+					positions={s.coordinates}
+					color="#444"
+					weight={3}
+					opacity={0.85}
+					dashArray="8 6"
+				>
+					<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
+						<div className="carte__popup">
+							<div className="carte__popup-photo">
+								<img src={s.image} alt={s.name} className="carte__popup-img" />
+								<span className="carte__popup-badge" style={{ background: '#555' }}>
+									Sentier
+								</span>
+							</div>
+							<div className="carte__popup-body">
+								<div className="carte__popup-name">{s.name}</div>
+								<div className="carte__popup-desc">{s.description}</div>
+								<div className="carte__popup-meta">
+									<span className="carte__popup-tag">{s.distance}</span>
+									<span className="carte__popup-tag">{s.duration}</span>
+								</div>
+							</div>
+						</div>
+					</Popup>
+				</Polyline>
+			))}
+		</MapContainer>
+	);
+
+	return (
+		<>
+			<div className="carte">
+				{/* Barre mobile : bouton pour ouvrir le panneau */}
+				<div className="carte__mobile-toolbar">
+					<button className="carte__panel-toggle" onClick={() => setPanelOpen(true)}>
+						<SlidersHorizontal size={14} />
+						<span>Filtres &amp; lieux</span>
+						{activeFiltersCount > 0 && (
+							<span className="carte__panel-badge">{activeFiltersCount}</span>
+						)}
+					</button>
+				</div>
+
+				{/* Sidebar desktop */}
+				<aside className="carte__sidebar">
+					<div className="carte__sidebar-header">
+						<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
+						<h1 className="carte__sidebar-title">Explorer la commune</h1>
+					</div>
+					{filtersSection}
+					{listSection}
+				</aside>
+
+				{/* Carte */}
+				<div className="carte__map-wrap">
+					{mapContent}
+				</div>
+			</div>
+
+			{/* Panneau coulissant mobile */}
+			<div className={`carte__mobile-panel${panelOpen ? ' carte__mobile-panel--open' : ''}`}>
+				<div className="carte__mobile-panel-header">
+					<div>
+						<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
+						<div className="carte__mobile-panel-title">Explorer la commune</div>
+					</div>
+					<button className="carte__mobile-panel-close" onClick={() => setPanelOpen(false)}>
+						<X size={18} />
+					</button>
+				</div>
+				<div className="carte__mobile-panel-body">
+					{filtersSection}
+					{listSection}
+				</div>
+			</div>
+
+			{/* Overlay mobile */}
+			<div
+				className={`carte__mobile-overlay${panelOpen ? ' carte__mobile-overlay--visible' : ''}`}
+				onClick={() => setPanelOpen(false)}
+			/>
+		</>
 	);
 }

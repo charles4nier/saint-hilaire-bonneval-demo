@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import './style.scss';
 
 const CLASS_NAME = 'header';
@@ -77,6 +78,7 @@ function MobileNavItem({ link, onClose }: { link: NavLink; onClose: () => void }
 		return (
 			<Link href={link.href} className={`${CLASS_NAME}__mobile-link`} onClick={onClose}>
 				{link.label}
+				<ChevronRight size={16} className={`${CLASS_NAME}__mobile-arrow`} />
 			</Link>
 		);
 	}
@@ -89,12 +91,12 @@ function MobileNavItem({ link, onClose }: { link: NavLink; onClose: () => void }
 			>
 				{link.label}
 				<ChevronDown
-					size={15}
-					className={`${CLASS_NAME}__chevron ${open ? `${CLASS_NAME}__chevron--open` : ''}`}
+					size={16}
+					className={`${CLASS_NAME}__mobile-chevron ${open ? `${CLASS_NAME}__mobile-chevron--open` : ''}`}
 				/>
 			</button>
-			{open && (
-				<div className={`${CLASS_NAME}__mobile-sub`}>
+			<div className={`${CLASS_NAME}__mobile-sub ${open ? `${CLASS_NAME}__mobile-sub--open` : ''}`}>
+				<div className={`${CLASS_NAME}__mobile-sub-inner`}>
 					{link.children.map((child) => (
 						<Link
 							key={child.href}
@@ -102,81 +104,105 @@ function MobileNavItem({ link, onClose }: { link: NavLink; onClose: () => void }
 							className={`${CLASS_NAME}__mobile-sublink`}
 							onClick={onClose}
 						>
+							<span className={`${CLASS_NAME}__mobile-sublink-dot`} />
 							{child.label}
 						</Link>
 					))}
 				</div>
-			)}
+			</div>
 		</div>
 	);
 }
 
 export default function Header() {
-	const [isScrolled, setIsScrolled] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [mounted, setMounted] = useState(false);
 
-	useEffect(() => {
-		const onScroll = () => setIsScrolled(window.scrollY > 24);
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
-		return () => window.removeEventListener('scroll', onScroll);
-	}, []);
+	useEffect(() => setMounted(true), []);
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : '';
-		return () => {
-			document.body.style.overflow = '';
-		};
+		return () => { document.body.style.overflow = ''; };
 	}, [isOpen]);
 
 	return (
-		<header className={`${CLASS_NAME} scrolled`}>
-			<div className={`${CLASS_NAME}__inner container`}>
-				<Link href="/" className={`${CLASS_NAME}__logo`}>
-					<div className={`${CLASS_NAME}__logo-badge`}>
-						<Image
-							src="/saint-hilaire-bonneval-logo.png"
-							alt="Blason de Saint-Hilaire-Bonneval"
-							width={36}
-							height={36}
-						/>
-					</div>
-					<div className={`${CLASS_NAME}__logo-text`}>
-						<span className={`${CLASS_NAME}__logo-name`}>Saint-Hilaire-Bonneval</span>
-						<span className={`${CLASS_NAME}__logo-sub`}>Haute-Vienne · 87260</span>
-					</div>
-				</Link>
-
-				<nav className={`${CLASS_NAME}__nav`}>
-					{navLinks.map((link) => (
-						<DropdownItem key={link.label} link={link} />
-					))}
-				</nav>
-
-				<div className={`${CLASS_NAME}__actions`}>
-					<Link href="/#location-salle" className={`${CLASS_NAME}__cta`}>
-						Location de salles
+		<>
+			<header className={`${CLASS_NAME} scrolled`}>
+				<div className={`${CLASS_NAME}__inner container`}>
+					<Link href="/" className={`${CLASS_NAME}__logo`}>
+						<div className={`${CLASS_NAME}__logo-badge`}>
+							<Image
+								src="/saint-hilaire-bonneval-logo.png"
+								alt="Blason de Saint-Hilaire-Bonneval"
+								width={36}
+								height={36}
+							/>
+						</div>
+						<div className={`${CLASS_NAME}__logo-text`}>
+							<span className={`${CLASS_NAME}__logo-name`}>Saint-Hilaire-Bonneval</span>
+							<span className={`${CLASS_NAME}__logo-sub`}>Haute-Vienne · 87260</span>
+						</div>
 					</Link>
-					<button
-						className={`${CLASS_NAME}__burger`}
-						onClick={() => setIsOpen(!isOpen)}
-						aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-					>
-						{isOpen ? <X size={24} /> : <Menu size={24} />}
-					</button>
-				</div>
-			</div>
 
-			{isOpen && (
-				<>
-					<div className={`${CLASS_NAME}__overlay`} onClick={() => setIsOpen(false)} />
-					<nav className={`${CLASS_NAME}__mobile`}>
+					<nav className={`${CLASS_NAME}__nav`}>
 						{navLinks.map((link) => (
-							<MobileNavItem key={link.label} link={link} onClose={() => setIsOpen(false)} />
+							<DropdownItem key={link.label} link={link} />
 						))}
 					</nav>
-				</>
+
+					<div className={`${CLASS_NAME}__actions`}>
+						<Link href="/#location-salle" className={`${CLASS_NAME}__cta`}>
+							Location de salles
+						</Link>
+						<button
+							className={`${CLASS_NAME}__burger`}
+							onClick={() => setIsOpen(!isOpen)}
+							aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+						>
+							{isOpen ? <X size={22} /> : <Menu size={22} />}
+						</button>
+					</div>
+				</div>
+			</header>
+
+			{mounted && createPortal(
+				<>
+					<div
+						className={`${CLASS_NAME}__overlay ${isOpen ? `${CLASS_NAME}__overlay--visible` : ''}`}
+						onClick={() => setIsOpen(false)}
+					/>
+					<nav className={`${CLASS_NAME}__drawer ${isOpen ? `${CLASS_NAME}__drawer--open` : ''}`}>
+						<div className={`${CLASS_NAME}__drawer-header`}>
+							<div className={`${CLASS_NAME}__drawer-logo`}>
+								<span className={`${CLASS_NAME}__drawer-logo-name`}>Saint-Hilaire-Bonneval</span>
+								<span className={`${CLASS_NAME}__drawer-logo-sub`}>Haute-Vienne · 87260</span>
+							</div>
+							<button
+								className={`${CLASS_NAME}__drawer-close`}
+								onClick={() => setIsOpen(false)}
+								aria-label="Fermer le menu"
+							>
+								<X size={20} />
+							</button>
+						</div>
+						<div className={`${CLASS_NAME}__drawer-body`}>
+							{navLinks.map((link) => (
+								<MobileNavItem key={link.label} link={link} onClose={() => setIsOpen(false)} />
+							))}
+						</div>
+						<div className={`${CLASS_NAME}__drawer-footer`}>
+							<Link
+								href="/#location-salle"
+								className={`${CLASS_NAME}__drawer-cta`}
+								onClick={() => setIsOpen(false)}
+							>
+								Location de salles
+							</Link>
+						</div>
+					</nav>
+				</>,
+				document.body
 			)}
-		</header>
+		</>
 	);
 }

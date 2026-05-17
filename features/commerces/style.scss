@@ -104,12 +104,8 @@ $b: 'commerces';
    ======================== */
 
 .#{$b}__section {
-	padding: $section-padding-y-desktop $spacing-lg;
-
-	@media (min-width: $breakpoint-md) {
-		padding-left: $spacing-5xl;
-		padding-right: $spacing-5xl;
-	}
+	padding-top: $section-padding-y-desktop;
+	padding-bottom: $section-padding-y-desktop;
 }
 
 .#{$b}__header {
@@ -149,9 +145,6 @@ $b: 'commerces';
 	top: 80px;
 	z-index: 10;
 	background: $background;
-	display: flex;
-	flex-wrap: wrap;
-	gap: $spacing-sm;
 	padding-top: $spacing-lg;
 	padding-bottom: $spacing-lg;
 	margin-bottom: $spacing-3xl;
@@ -186,6 +179,88 @@ $b: 'commerces';
 			border-bottom-color: $border;
 		}
 	}
+}
+
+.#{$b}__filters-toggle {
+	display: none;
+
+	@media (max-width: $breakpoint-md) {
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm;
+		width: 100%;
+		padding: 10px 16px;
+		border: 1px solid $border;
+		border-radius: 999px;
+		font-size: 13px;
+		font-weight: $font-weight-medium;
+		color: $foreground;
+		background: transparent;
+		cursor: pointer;
+		transition: $transition-smooth;
+
+		&:hover {
+			border-color: $primary;
+			color: $primary;
+		}
+	}
+}
+
+.#{$b}__filters-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: $primary;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: $font-weight-bold;
+}
+
+.#{$b}__filters-arrow {
+	margin-left: auto;
+	color: $muted-foreground;
+	transition: transform 0.25s $ease-smooth;
+
+	&--open {
+		transform: rotate(180deg);
+	}
+}
+
+.#{$b}__filters-panel {
+	@media (max-width: $breakpoint-md) {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s $ease-smooth;
+		margin-top: $spacing-sm;
+
+		&--open {
+			grid-template-rows: 1fr;
+		}
+	}
+
+	@media (min-width: $breakpoint-md + 1) {
+		display: block;
+	}
+}
+
+.#{$b}__filters-panel-inner {
+	overflow: hidden;
+
+	@media (min-width: $breakpoint-md + 1) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $spacing-sm;
+	}
+}
+
+.#{$b}__filters-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: $spacing-sm;
 }
 
 .#{$b}__filter {

@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
 	ChevronRight,
+	ChevronDown,
 	Store,
 	MapPin,
 	Phone,
@@ -16,6 +17,7 @@ import {
 	Hammer,
 	ShoppingBasket,
 	Sparkles,
+	SlidersHorizontal,
 } from 'lucide-react';
 import './style.scss';
 
@@ -235,6 +237,7 @@ const filters: ('Tous' | Category)[] = [
 export default function CommercesPage() {
 	const [active, setActive] = useState<(typeof filters)[number]>('Tous');
 	const [stuck, setStuck] = useState(false);
+	const [filtersOpen, setFiltersOpen] = useState(false);
 	const sentinelRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -299,20 +302,35 @@ export default function CommercesPage() {
 					{/* Filtres */}
 					<div ref={sentinelRef} style={{ height: 1, marginBottom: -1 }} />
 					<div className={`${CLASS_NAME}__filters${stuck ? ` ${CLASS_NAME}__filters--stuck` : ''}`}>
-						{filters.map((f) => {
-							const isActive = f === active;
-							const count = counts[f as Category | 'Tous'] ?? 0;
-							return (
-								<button
-									key={f}
-									onClick={() => setActive(f)}
-									className={`${CLASS_NAME}__filter ${isActive ? `${CLASS_NAME}__filter--active` : ''}`}
-								>
-									{f}
-									<span className={`${CLASS_NAME}__filter-count`}>{count}</span>
-								</button>
-							);
-						})}
+						<button
+							className={`${CLASS_NAME}__filters-toggle`}
+							onClick={() => setFiltersOpen((o) => !o)}
+						>
+							<SlidersHorizontal size={14} />
+							<span>Filtres</span>
+							{active !== 'Tous' && <span className={`${CLASS_NAME}__filters-badge`}>1</span>}
+							<ChevronDown size={14} className={`${CLASS_NAME}__filters-arrow${filtersOpen ? ` ${CLASS_NAME}__filters-arrow--open` : ''}`} />
+						</button>
+						<div className={`${CLASS_NAME}__filters-panel${filtersOpen ? ` ${CLASS_NAME}__filters-panel--open` : ''}`}>
+							<div className={`${CLASS_NAME}__filters-panel-inner`}>
+								<div className={`${CLASS_NAME}__filters-pills`}>
+									{filters.map((f) => {
+										const isActive = f === active;
+										const count = counts[f as Category | 'Tous'] ?? 0;
+										return (
+											<button
+												key={f}
+												onClick={() => setActive(f)}
+												className={`${CLASS_NAME}__filter ${isActive ? `${CLASS_NAME}__filter--active` : ''}`}
+											>
+												{f}
+												<span className={`${CLASS_NAME}__filter-count`}>{count}</span>
+											</button>
+										);
+									})}
+								</div>
+							</div>
+						</div>
 					</div>
 
 					{/* Grille */}

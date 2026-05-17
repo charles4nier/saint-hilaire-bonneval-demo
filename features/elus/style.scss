@@ -116,9 +116,7 @@ $b: 'elus';
 }
 
 .#{$b}__section-header {
-	margin-bottom: $spacing-5xl;
-	padding-bottom: $spacing-3xl;
-	border-bottom: 2px solid $border;
+	margin-bottom: $spacing-4xl;
 }
 
 .#{$b}__section-eyebrow {
@@ -158,6 +156,7 @@ $b: 'elus';
 	border-left: 4px solid $primary;
 	padding: $spacing-3xl;
 	margin-bottom: $spacing-5xl;
+	box-shadow: inset 0 0 0 1px $border;
 
 	@media (min-width: $breakpoint-sm) {
 		flex-direction: row;
@@ -247,12 +246,7 @@ $b: 'elus';
 	display: grid;
 	grid-template-columns: auto 1fr;
 	gap: $spacing-xl;
-	padding: $spacing-3xl 0;
-	border-bottom: 1px solid $border;
-
-	&:last-child {
-		border-bottom: none;
-	}
+	padding: $spacing-xl 0;
 }
 
 .#{$b}__member-avatar {
@@ -339,7 +333,6 @@ $b: 'elus';
 .#{$b}__meeting {
 	padding: $spacing-5xl $spacing-lg;
 	background: $secondary;
-	border-top: 1px solid $border;
 
 	@media (min-width: $breakpoint-md) {
 		padding-left: $spacing-5xl;
