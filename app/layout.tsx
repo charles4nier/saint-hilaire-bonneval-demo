@@ -30,7 +30,8 @@ export const metadata: Metadata = defaultMetadata;
 export const viewport: Viewport = {
 	width: 'device-width',
 	initialScale: 1,
-	viewportFit: 'cover'
+	viewportFit: 'cover',
+	colorScheme: 'light'
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
