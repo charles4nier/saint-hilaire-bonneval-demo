@@ -173,10 +173,10 @@ export default function Header() {
 					/>
 					<nav className={`${CLASS_NAME}__drawer ${isOpen ? `${CLASS_NAME}__drawer--open` : ''}`}>
 						<div className={`${CLASS_NAME}__drawer-header`}>
-							<div className={`${CLASS_NAME}__drawer-logo`}>
+							<Link href="/" className={`${CLASS_NAME}__drawer-logo`} onClick={() => setIsOpen(false)}>
 								<span className={`${CLASS_NAME}__drawer-logo-name`}>Saint-Hilaire-Bonneval</span>
 								<span className={`${CLASS_NAME}__drawer-logo-sub`}>Haute-Vienne · 87260</span>
-							</div>
+							</Link>
 							<button
 								className={`${CLASS_NAME}__drawer-close`}
 								onClick={() => setIsOpen(false)}

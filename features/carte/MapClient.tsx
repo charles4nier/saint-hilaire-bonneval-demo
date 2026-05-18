@@ -73,6 +73,14 @@ function createClusterIcon(cluster: any) {
 	});
 }
 
+function MapResizer({ trigger }: { trigger: number | null }) {
+	const map = useMap();
+	useEffect(() => {
+		map.invalidateSize({ animate: false });
+	}, [trigger, map]);
+	return null;
+}
+
 function MapControls() {
 	const map = useMap();
 	return (
@@ -134,6 +142,9 @@ function FitCommune({ geoJSON, skip }: { geoJSON: any; skip: boolean }) {
 type FilterState = { hebergement: boolean; 'site-visite': boolean; sentier: boolean };
 type Props = { initialId?: string };
 
+const SHEET_MIN = 158;  // handle + 2 filtres visibles
+const SHEET_MAX = 0.48; // 48vh = hauteur CSS initiale du sheet
+
 export default function MapClient({ initialId }: Props) {
 	const [filters, setFilters] = useState<FilterState>({
 		hebergement: true,
@@ -141,6 +152,9 @@ export default function MapClient({ initialId }: Props) {
 		sentier: true,
 	});
 	const [selectedId, setSelectedId] = useState<string | undefined>(initialId);
+	const [sheetHeight, setSheetHeight] = useState<number | null>(null);
+	const sheetRef = useRef<HTMLDivElement>(null);
+	const handleRef = useRef<HTMLDivElement>(null);
 	const markerRefs = useRef<Map<string, L.Marker>>(new Map());
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null);
@@ -163,6 +177,33 @@ export default function MapClient({ initialId }: Props) {
 	const visibleSentiers = sentiers.filter(() => filters.sentier);
 
 	const handleSelectPoi = (id: string) => setSelectedId(id);
+
+	const onHandlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+		const sheet = sheetRef.current;
+		const handle = handleRef.current;
+		if (!sheet || !handle) return;
+
+		const startY = e.clientY;
+		const startH = sheet.getBoundingClientRect().height;
+		const maxH = window.innerHeight * SHEET_MAX;
+
+		handle.setPointerCapture(e.pointerId);
+
+		const onMove = (ev: PointerEvent) => {
+			const delta = startY - ev.clientY;
+			const newH = Math.min(Math.max(startH + delta, SHEET_MIN), maxH);
+			setSheetHeight(newH);
+		};
+
+		const onUp = () => {
+			handle.removeEventListener('pointermove', onMove);
+			handle.removeEventListener('pointerup', onUp);
+		};
+
+		handle.addEventListener('pointermove', onMove);
+		handle.addEventListener('pointerup', onUp);
+		e.preventDefault();
+	};
 
 	/* ---- Contenu partagé sidebar / panneau mobile ---- */
 
@@ -272,6 +313,7 @@ export default function MapClient({ initialId }: Props) {
 			/>
 			<FlyTo id={selectedId} markersRef={markerRefs} />
 			<FitCommune geoJSON={communeGeoJSON} skip={!!initialId} />
+			<MapResizer trigger={sheetHeight} />
 			<MapControls />
 
 			{communeGeoJSON && (
@@ -376,8 +418,12 @@ export default function MapClient({ initialId }: Props) {
 			</div>
 
 			{/* Sheet mobile (Airbnb-style) */}
-			<div className="carte__mobile-sheet">
-				<div className="carte__sheet-handle" />
+			<div
+				className="carte__mobile-sheet"
+				ref={sheetRef}
+				style={sheetHeight !== null ? { height: sheetHeight, maxHeight: 'none' } : undefined}
+			>
+				<div ref={handleRef} className="carte__sheet-handle" onPointerDown={onHandlePointerDown} />
 				{filtersSection}
 				{listSection}
 			</div>
