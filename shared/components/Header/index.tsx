@@ -153,7 +153,7 @@ export default function Header() {
 					</nav>
 
 					<div className={`${CLASS_NAME}__actions`}>
-						<Link href="/#location-salle" className={`${CLASS_NAME}__cta`}>
+						<Link href="/location-salle" className={`${CLASS_NAME}__cta`}>
 							Location de salles
 						</Link>
 						<button
@@ -194,7 +194,7 @@ export default function Header() {
 						</div>
 						<div className={`${CLASS_NAME}__drawer-footer`}>
 							<Link
-								href="/#location-salle"
+								href="/location-salle"
 								className={`${CLASS_NAME}__drawer-cta`}
 								onClick={() => setIsOpen(false)}
 							>
