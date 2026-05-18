@@ -91,7 +91,7 @@ export const pois: POI[] = [
 		category: 'site-visite',
 		lat: 45.718,
 		lng: 1.385,
-		image: 'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=600&q=80',
+		image: '/saint-hilaire-bonneval-lake.jpg',
 	},
 ];
 
