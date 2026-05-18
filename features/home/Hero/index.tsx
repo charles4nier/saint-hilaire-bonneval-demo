@@ -37,9 +37,9 @@ export default function Hero() {
 					<div className={`${CLASS_NAME}__actions`}>
 						<a href="#demarches" className="btn-primary">
 							Effectuer une démarche
-							<ArrowRight size={16} />
+							<ArrowRight size={16} className={`${CLASS_NAME}__arrow`} />
 						</a>
-						<a href="#decouvrir" className="btn-secondary">
+						<a href="/vivre/la-commune" className="btn-secondary">
 							Découvrir la commune
 						</a>
 					</div>

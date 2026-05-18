@@ -17,6 +17,7 @@ const navLinks: NavLink[] = [
 		label: 'Votre mairie',
 		href: '#',
 		children: [
+			{ label: 'Actualités', href: '/mairie/actualites' },
 			{ label: 'Le maire & les élus', href: '/mairie/maire-elus' },
 			{ label: 'Documents & publications', href: '/mairie/publications' },
 			{ label: 'Horaires & informations', href: '/mairie/horaires' },
@@ -27,6 +28,7 @@ const navLinks: NavLink[] = [
 		label: 'Vivre à Saint-Hilaire',
 		href: '#',
 		children: [
+			{ label: 'La commune', href: '/vivre/la-commune' },
 			{ label: 'Services & vie pratique', href: '/commerces' },
 			{ label: 'Enfance & jeunesse', href: '/vivre/enfance-jeunesse' },
 			{ label: 'Vie associative', href: '/vivre/vie-associative' },

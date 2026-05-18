@@ -36,7 +36,7 @@ export default function News() {
 						</h2>
 						<div className="divider-line" />
 					</div>
-					<a href="#" className="btn-outline">
+					<a href="/mairie/actualites" className="btn-outline">
 						Toutes les actualités <ArrowRight size={16} />
 					</a>
 				</div>

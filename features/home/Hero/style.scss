@@ -97,7 +97,16 @@
 
 		&__actions {
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: stretch;
+
+			.btn-primary,
+			.btn-secondary {
+				justify-content: center;
+			}
+		}
+
+		&__arrow {
+			display: none;
 		}
 	}
 }

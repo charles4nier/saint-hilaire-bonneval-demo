@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'commerces';
+$b: 'actualites';
 
 /* ========================
    Hero
@@ -62,6 +62,10 @@ $b: 'commerces';
 	a:hover {
 		color: #ffffff;
 	}
+
+	svg {
+		flex-shrink: 0;
+	}
 }
 
 .#{$b}__eyebrow {
@@ -100,7 +104,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Section annuaire
+   Section articles
    ======================== */
 
 .#{$b}__section {
@@ -137,7 +141,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Filtres
+   Filtres (même système que commerces)
    ======================== */
 
 .#{$b}__filters {
@@ -304,7 +308,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Grille de cartes
+   Grille d'articles
    ======================== */
 
 .#{$b}__grid {
@@ -333,153 +337,83 @@ $b: 'commerces';
 	}
 }
 
-.#{$b}__card-icon {
-	width: 40px;
-	height: 40px;
+.#{$b}__card-top {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
+	justify-content: space-between;
+	gap: $spacing-md;
+	margin-bottom: $spacing-lg;
+	flex-wrap: wrap;
+}
+
+.#{$b}__card-cat {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 10px;
+	font-weight: $font-weight-bold;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	padding: 4px 10px;
+
+	&--primary {
+		background: $primary-10;
+		color: $primary;
+	}
 
 	&--leaf {
-		color: $leaf;
 		background: $leaf-15;
+		color: $leaf;
 	}
 
 	&--coral {
-		color: $coral;
 		background: $coral-15;
-	}
-
-	&--terracotta {
-		color: $terracotta;
-		background: $sunshine-25;
-	}
-
-	&--primary {
-		color: $primary;
-		background: $primary-10;
-	}
-
-	&--muted {
-		color: $foreground;
-		background: $secondary;
-	}
-}
-
-.#{$b}__card-category {
-	margin-top: $spacing-lg;
-	font-size: 10px;
-	font-weight: $font-weight-semibold;
-	text-transform: uppercase;
-	letter-spacing: 0.18em;
-	color: $muted-foreground;
-}
-
-.#{$b}__card-name {
-	font-family: $font-display;
-	font-size: 18px;
-	font-weight: $font-weight-semibold;
-	line-height: $line-height-snug;
-	color: $foreground;
-	margin-top: $spacing-sm;
-}
-
-.#{$b}__card-desc {
-	margin-top: $spacing-md;
-	font-size: $small-size-desktop;
-	color: $foreground-80;
-	line-height: $line-height-relaxed;
-}
-
-.#{$b}__card-contacts {
-	margin-top: auto;
-	padding-top: $spacing-lg;
-	border-top: 1px solid $border;
-	margin-top: $spacing-xl;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.#{$b}__card-contact {
-	display: flex;
-	align-items: flex-start;
-	gap: $spacing-sm;
-	font-size: 12px;
-	color: $muted-foreground;
-	line-height: $line-height-relaxed;
-}
-
-.#{$b}__contact-icon {
-	flex-shrink: 0;
-	margin-top: 2px;
-	color: $leaf;
-}
-
-.#{$b}__contact-link {
-	transition: $transition-smooth;
-	word-break: break-all;
-
-	&:hover {
 		color: $coral;
 	}
-}
 
-/* ========================
-   Encart référencement
-   ======================== */
-
-.#{$b}__cta-banner {
-	margin-top: $spacing-5xl;
-	background: $leaf-15;
-	border-left: 4px solid $leaf;
-	padding: $spacing-3xl;
-	box-shadow: $shadow-soft;
-	display: grid;
-	gap: $spacing-lg;
-	align-items: center;
-
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr auto;
-		padding: $spacing-3xl $spacing-4xl;
+	&--sunshine {
+		background: $sunshine-25;
+		color: $foreground-80;
 	}
 }
 
-.#{$b}__cta-eyebrow {
-	font-size: $xs-size-desktop;
-	font-weight: $font-weight-bold;
-	text-transform: uppercase;
-	letter-spacing: 0.22em;
-	color: $leaf;
+.#{$b}__card-date {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 11px;
+	color: $muted-foreground;
+	white-space: nowrap;
 }
 
-.#{$b}__cta-title {
+.#{$b}__card-title {
 	font-family: $font-display;
-	font-size: clamp(18px, 2vw, 24px);
+	font-size: $h3-size-desktop;
 	font-weight: $font-weight-semibold;
 	line-height: $line-height-snug;
-	margin-top: $spacing-sm;
 	color: $foreground;
+	margin-bottom: $spacing-md;
 }
 
-.#{$b}__cta-desc {
-	margin-top: $spacing-sm;
+.#{$b}__card-excerpt {
+	flex: 1;
 	font-size: $small-size-desktop;
-	color: $foreground-80;
 	line-height: $line-height-relaxed;
-	max-width: 640px;
+	color: $foreground-80;
+	margin-bottom: $spacing-xl;
 }
 
-.#{$b}__cta-btn {
-	background-color: $leaf;
-	align-self: flex-start;
-
-	@media (min-width: $breakpoint-sm) {
-		align-self: center;
-	}
+.#{$b}__card-link {
+	display: inline-flex;
+	align-items: center;
+	gap: $spacing-sm;
+	font-size: $small-size-desktop;
+	font-weight: $font-weight-medium;
+	color: $primary;
+	margin-top: auto;
+	transition: gap 0.15s;
 
 	&:hover {
-		background-color: oklch(0.54 0.16 150);
+		gap: $spacing-md;
 	}
 }
