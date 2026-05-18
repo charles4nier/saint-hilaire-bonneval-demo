@@ -18,9 +18,9 @@ const CLASS_NAME = 'floating';
 
 type Modal = 'contact' | 'bot' | null;
 
-function ContactModal({ onClose }: { onClose: () => void }) {
+function ContactModal({ onClose, closing }: { onClose: () => void; closing: boolean }) {
 	return (
-		<div className={`${CLASS_NAME}__modal`}>
+		<div className={`${CLASS_NAME}__modal ${closing ? `${CLASS_NAME}__modal--closing` : ''}`}>
 			<div className={`${CLASS_NAME}__modal-header`}>
 				<div className={`${CLASS_NAME}__modal-title-group`}>
 					<div className={`${CLASS_NAME}__modal-icon ${CLASS_NAME}__modal-icon--leaf`}>
@@ -99,7 +99,7 @@ const suggestions = [
 	'Commerces & artisans',
 ];
 
-function BotModal({ onClose }: { onClose: () => void }) {
+function BotModal({ onClose, closing }: { onClose: () => void; closing: boolean }) {
 	const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([
 		{ from: 'bot', text: 'Bonjour 👋 Que recherchez-vous ?' },
 	]);
@@ -118,7 +118,7 @@ function BotModal({ onClose }: { onClose: () => void }) {
 	};
 
 	return (
-		<div className={`${CLASS_NAME}__modal`}>
+		<div className={`${CLASS_NAME}__modal ${closing ? `${CLASS_NAME}__modal--closing` : ''}`}>
 			<div className={`${CLASS_NAME}__modal-header`}>
 				<div className={`${CLASS_NAME}__modal-title-group`}>
 					<div className={`${CLASS_NAME}__modal-icon ${CLASS_NAME}__modal-icon--coral`}>
@@ -175,20 +175,38 @@ function BotModal({ onClose }: { onClose: () => void }) {
 
 export default function FloatingButtons() {
 	const [activeModal, setActiveModal] = useState<Modal>(null);
+	const [isClosing, setIsClosing] = useState(false);
 	const pathname = usePathname();
 	const isOnMap = pathname === '/tourisme/carte-interactive';
 
-	const toggle = (modal: Modal) =>
-		setActiveModal((prev) => (prev === modal ? null : modal));
+	const handleClose = () => {
+		setIsClosing(true);
+		setTimeout(() => {
+			setActiveModal(null);
+			setIsClosing(false);
+		}, 280);
+	};
+
+	const toggle = (modal: Modal) => {
+		if (activeModal === modal) {
+			handleClose();
+		} else {
+			setIsClosing(false);
+			setActiveModal(modal);
+		}
+	};
 
 	return (
 		<>
 			{activeModal && (
-				<div className={`${CLASS_NAME}__backdrop`} onClick={() => setActiveModal(null)} />
+				<div
+					className={`${CLASS_NAME}__backdrop ${isClosing ? `${CLASS_NAME}__backdrop--closing` : ''}`}
+					onClick={handleClose}
+				/>
 			)}
 
-			{activeModal === 'contact' && <ContactModal onClose={() => setActiveModal(null)} />}
-			{activeModal === 'bot' && <BotModal onClose={() => setActiveModal(null)} />}
+			{activeModal === 'contact' && <ContactModal onClose={handleClose} closing={isClosing} />}
+			{activeModal === 'bot' && <BotModal onClose={handleClose} closing={isClosing} />}
 
 			<div className={`${CLASS_NAME}__buttons`}>
 				{!isOnMap && (

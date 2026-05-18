@@ -2,6 +2,26 @@
 
 $b: 'floating';
 
+@keyframes backdrop-in {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@keyframes backdrop-out {
+	from { opacity: 1; }
+	to   { opacity: 0; }
+}
+
+@keyframes modal-in {
+	from { transform: translateX(100%); opacity: 0; }
+	to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes modal-out {
+	from { transform: translateX(0);    opacity: 1; }
+	to   { transform: translateX(100%); opacity: 0; }
+}
+
 /* ========================
    Boutons flottants
    ======================== */
@@ -61,6 +81,14 @@ $b: 'floating';
 	position: fixed;
 	inset: 0;
 	z-index: 110;
+	background: rgba(0, 0, 0, 0.45);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	animation: backdrop-in 0.25s ease forwards;
+
+	&--closing {
+		animation: backdrop-out 0.28s ease forwards;
+	}
 }
 
 /* ========================
@@ -81,6 +109,11 @@ $b: 'floating';
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	animation: modal-in 0.32s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+
+	&--closing {
+		animation: modal-out 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+	}
 
 	@media (max-width: $breakpoint-md) {
 		width: 90vw;
