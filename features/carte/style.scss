@@ -13,9 +13,10 @@ $header-h: 80px;
 	display: flex;
 
 	@media (max-width: $breakpoint-sm) {
-		height: auto;
-		min-height: calc(100dvh - #{$header-h});
+		height: calc(100dvh - #{$header-h});
+		min-height: unset;
 		flex-direction: column;
+		overflow: hidden;
 		background: $gradient-primary;
 	}
 }
@@ -254,9 +255,10 @@ $header-h: 80px;
 	isolation: isolate;
 
 	@media (max-width: $breakpoint-sm) {
-		flex: none;
+		flex: 1;
+		min-height: 0;
 		width: 100%;
-		height: 100vw;
+		height: auto;
 		margin: 0;
 		border-radius: 0;
 		overflow: hidden;
@@ -437,7 +439,10 @@ $header-h: 80px;
 	display: none;
 
 	@media (max-width: $breakpoint-sm) {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		max-height: 48vh;
 		position: relative;
 		z-index: 20;
 		background: $background;
@@ -446,29 +451,21 @@ $header-h: 80px;
 		box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
 
 		.carte__sidebar-filters {
+			flex-shrink: 0;
 			border-bottom: 1px solid $border;
 		}
 
 		.carte__sidebar-list {
-			flex: none;
-			overflow: visible;
+			flex: 1;
+			min-height: 0;
+			overflow-y: auto;
 			height: auto;
 			max-height: none;
-			padding-bottom: $spacing-5xl;
+			padding-bottom: $spacing-xl;
 		}
 	}
 }
 
 .carte__sheet-handle {
-	display: flex;
-	justify-content: center;
-	padding: 12px 0 4px;
-
-	&::before {
-		content: '';
-		width: 36px;
-		height: 4px;
-		background: $border;
-		border-radius: 2px;
-	}
+	display: none;
 }
