@@ -32,7 +32,6 @@ const navLinks: NavLink[] = [
 			{ label: 'Services & vie pratique', href: '/commerces' },
 			{ label: 'Enfance & jeunesse', href: '/vivre/enfance-jeunesse' },
 			{ label: 'Vie associative', href: '/vivre/vie-associative' },
-			{ label: 'Cadre de vie', href: '/vivre/cadre-de-vie' },
 			{ label: 'Sports & loisirs', href: '/vivre/sports-loisirs' },
 		],
 	},
@@ -44,7 +43,7 @@ const navLinks: NavLink[] = [
 			{ label: 'Carte interactive', href: '/tourisme/carte-interactive' },
 		],
 	},
-	{ label: 'Mes démarches', href: '/#demarches' },
+	{ label: 'Mes démarches', href: '/demarches' },
 ];
 
 function DropdownItem({ link }: { link: NavLink }) {
