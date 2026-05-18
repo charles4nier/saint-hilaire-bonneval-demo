@@ -7,7 +7,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.Default.css';
-import { Plus, Minus, SlidersHorizontal, X } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { pois, sentiers } from './data';
 import './style.scss';
 
@@ -141,7 +141,6 @@ export default function MapClient({ initialId }: Props) {
 		sentier: true,
 	});
 	const [selectedId, setSelectedId] = useState<string | undefined>(initialId);
-	const [panelOpen, setPanelOpen] = useState(false);
 	const markerRefs = useRef<Map<string, L.Marker>>(new Map());
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null);
@@ -162,12 +161,8 @@ export default function MapClient({ initialId }: Props) {
 
 	const visiblePois = pois.filter((p) => filters[p.category]);
 	const visibleSentiers = sentiers.filter(() => filters.sentier);
-	const activeFiltersCount = Object.values(filters).filter((v) => !v).length;
 
-	const handleSelectPoi = (id: string) => {
-		setSelectedId(id);
-		setPanelOpen(false);
-	};
+	const handleSelectPoi = (id: string) => setSelectedId(id);
 
 	/* ---- Contenu partagé sidebar / panneau mobile ---- */
 
@@ -364,57 +359,28 @@ export default function MapClient({ initialId }: Props) {
 	);
 
 	return (
-		<>
-			<div className="carte">
-				{/* Barre mobile : bouton pour ouvrir le panneau */}
-				<div className="carte__mobile-toolbar">
-					<button className="carte__panel-toggle" onClick={() => setPanelOpen(true)}>
-						<SlidersHorizontal size={14} />
-						<span>Filtres &amp; lieux</span>
-						{activeFiltersCount > 0 && (
-							<span className="carte__panel-badge">{activeFiltersCount}</span>
-						)}
-					</button>
+		<div className="carte">
+			{/* Sidebar desktop */}
+			<aside className="carte__sidebar">
+				<div className="carte__sidebar-header">
+					<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
+					<h1 className="carte__sidebar-title">Explorer la commune</h1>
 				</div>
+				{filtersSection}
+				{listSection}
+			</aside>
 
-				{/* Sidebar desktop */}
-				<aside className="carte__sidebar">
-					<div className="carte__sidebar-header">
-						<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
-						<h1 className="carte__sidebar-title">Explorer la commune</h1>
-					</div>
-					{filtersSection}
-					{listSection}
-				</aside>
-
-				{/* Carte */}
-				<div className="carte__map-wrap">
-					{mapContent}
-				</div>
+			{/* Carte */}
+			<div className="carte__map-wrap">
+				{mapContent}
 			</div>
 
-			{/* Panneau coulissant mobile */}
-			<div className={`carte__mobile-panel${panelOpen ? ' carte__mobile-panel--open' : ''}`}>
-				<div className="carte__mobile-panel-header">
-					<div>
-						<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
-						<div className="carte__mobile-panel-title">Explorer la commune</div>
-					</div>
-					<button className="carte__mobile-panel-close" onClick={() => setPanelOpen(false)}>
-						<X size={18} />
-					</button>
-				</div>
-				<div className="carte__mobile-panel-body">
-					{filtersSection}
-					{listSection}
-				</div>
+			{/* Sheet mobile (Airbnb-style) */}
+			<div className="carte__mobile-sheet">
+				<div className="carte__sheet-handle" />
+				{filtersSection}
+				{listSection}
 			</div>
-
-			{/* Overlay mobile */}
-			<div
-				className={`carte__mobile-overlay${panelOpen ? ' carte__mobile-overlay--visible' : ''}`}
-				onClick={() => setPanelOpen(false)}
-			/>
-		</>
+		</div>
 	);
 }
