@@ -154,9 +154,16 @@ $b: 'annuaire';
 	transition: border-color 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
 
 	&--stuck {
-		background: $gradient-warm;
-		border-bottom-color: oklch(0.72 0.18 18 / 0.4);
-		box-shadow: 0 4px 24px -8px oklch(0.84 0.17 88 / 0.25);
+		@media (min-width: $breakpoint-md + 1) {
+			background: $gradient-warm;
+			border-bottom-color: oklch(0.72 0.18 18 / 0.4);
+			box-shadow: 0 4px 24px -8px oklch(0.84 0.17 88 / 0.25);
+		}
+
+		@media (max-width: $breakpoint-md) {
+			border-bottom-color: $border;
+			box-shadow: $shadow-soft;
+		}
 	}
 }
 
@@ -169,18 +176,17 @@ $b: 'annuaire';
 		gap: $spacing-sm;
 		width: 100%;
 		padding: 10px 16px;
-		border: 1px solid $border;
+		border: none;
 		border-radius: 999px;
 		font-size: 13px;
 		font-weight: $font-weight-medium;
-		color: $foreground;
-		background: transparent;
+		color: #000000;
+		background: $gradient-warm;
 		cursor: pointer;
 		transition: $transition-smooth;
 
 		&:hover {
-			border-color: $primary;
-			color: $primary;
+			opacity: 0.9;
 		}
 	}
 }
@@ -205,6 +211,10 @@ $b: 'annuaire';
 	transition: transform 0.25s $ease-smooth;
 
 	&--open { transform: rotate(180deg); }
+
+	@media (max-width: $breakpoint-md) {
+		color: #000000;
+	}
 }
 
 .#{$b}__filters-panel {

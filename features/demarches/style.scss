@@ -153,18 +153,17 @@ $b: 'demarches';
 		gap: $spacing-sm;
 		width: 100%;
 		padding: 10px 16px;
-		border: 1px solid $border;
+		border: none;
 		border-radius: 999px;
 		font-size: 13px;
 		font-weight: $font-weight-medium;
-		color: $foreground;
-		background: transparent;
+		color: #000000;
+		background: $gradient-warm;
 		cursor: pointer;
 		transition: $transition-smooth;
 
 		&:hover {
-			border-color: $primary;
-			color: $primary;
+			opacity: 0.9;
 		}
 	}
 }
@@ -189,6 +188,10 @@ $b: 'demarches';
 	transition: transform 0.25s $ease-smooth;
 
 	&--open { transform: rotate(180deg); }
+
+	@media (max-width: $breakpoint-md) {
+		color: #000000;
+	}
 }
 
 .#{$b}__filters-panel {

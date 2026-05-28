@@ -466,6 +466,62 @@ $header-h: 80px;
 	}
 }
 
+.carte__sheet-filters {
+	display: none;
+
+	@media (max-width: $breakpoint-sm) {
+		display: block;
+		flex-shrink: 0;
+		border-bottom: 1px solid $border;
+	}
+}
+
+.carte__sheet-filters-toggle {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 100%;
+	padding: 10px $spacing-xl;
+	background: transparent;
+	border: none;
+	font-size: 13px;
+	font-weight: $font-weight-medium;
+	color: $foreground;
+	cursor: pointer;
+	text-align: left;
+
+	span:first-of-type {
+		flex: 1;
+	}
+}
+
+.carte__sheet-filters-arrow {
+	color: $muted-foreground;
+	transition: transform 0.3s $ease-smooth;
+
+	&--open {
+		transform: rotate(180deg);
+	}
+}
+
+.carte__sheet-filters-panel {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.35s $ease-smooth;
+
+	&--open {
+		grid-template-rows: 1fr;
+	}
+}
+
+.carte__sheet-filters-panel-inner {
+	overflow: hidden;
+
+	.carte__sidebar-section-label {
+		display: none;
+	}
+}
+
 .carte__sheet-handle {
 	display: none;
 
@@ -473,17 +529,17 @@ $header-h: 80px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 10px 0 6px;
+		padding: 18px 0 14px;
 		cursor: ns-resize;
 		touch-action: none;
 		flex-shrink: 0;
 
 		&::before {
 			content: '';
-			width: 36px;
-			height: 4px;
+			width: 44px;
+			height: 5px;
 			background: $border;
-			border-radius: 2px;
+			border-radius: 999px;
 			pointer-events: none;
 		}
 	}

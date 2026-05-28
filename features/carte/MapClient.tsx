@@ -7,7 +7,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/lib/assets/MarkerCluster.Default.css';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { pois, sentiers } from './data';
 import './style.scss';
 
@@ -142,7 +142,7 @@ function FitCommune({ geoJSON, skip }: { geoJSON: any; skip: boolean }) {
 type FilterState = { hebergement: boolean; 'site-visite': boolean; sentier: boolean };
 type Props = { initialId?: string };
 
-const SHEET_MIN = 158;  // handle + 2 filtres visibles
+const SHEET_MIN = 80;   // handle + filtre header collapsed
 const SHEET_MAX = 0.48; // 48vh = hauteur CSS initiale du sheet
 
 export default function MapClient({ initialId }: Props) {
@@ -152,6 +152,7 @@ export default function MapClient({ initialId }: Props) {
 		sentier: true,
 	});
 	const [selectedId, setSelectedId] = useState<string | undefined>(initialId);
+	const [filtersExpanded, setFiltersExpanded] = useState(false);
 	const [sheetHeight, setSheetHeight] = useState<number | null>(null);
 	const sheetRef = useRef<HTMLDivElement>(null);
 	const handleRef = useRef<HTMLDivElement>(null);
@@ -424,7 +425,27 @@ export default function MapClient({ initialId }: Props) {
 				style={sheetHeight !== null ? { height: sheetHeight, maxHeight: 'none' } : undefined}
 			>
 				<div ref={handleRef} className="carte__sheet-handle" onPointerDown={onHandlePointerDown} />
-				{filtersSection}
+
+				{/* Filtres — collapsés par défaut */}
+				<div className="carte__sheet-filters">
+					<button
+						className="carte__sheet-filters-toggle"
+						onClick={() => setFiltersExpanded((o) => !o)}
+					>
+						<SlidersHorizontal size={13} />
+						<span>Filtres</span>
+						<ChevronDown
+							size={13}
+							className={`carte__sheet-filters-arrow${filtersExpanded ? ' carte__sheet-filters-arrow--open' : ''}`}
+						/>
+					</button>
+					<div className={`carte__sheet-filters-panel${filtersExpanded ? ' carte__sheet-filters-panel--open' : ''}`}>
+						<div className="carte__sheet-filters-panel-inner">
+							{filtersSection}
+						</div>
+					</div>
+				</div>
+
 				{listSection}
 			</div>
 		</div>
