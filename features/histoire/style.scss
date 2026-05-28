@@ -12,6 +12,10 @@ $b: 'histoire';
 	padding-bottom: $spacing-6xl;
 	padding-left: $spacing-lg;
 	padding-right: $spacing-lg;
+
+	@media (max-width: $breakpoint-sm) {
+		padding-bottom: calc(#{$spacing-6xl} + 64px);
+	}
 	overflow: hidden;
 	background: $gradient-primary;
 	color: #ffffff;
@@ -119,15 +123,30 @@ $b: 'histoire';
    ======================== */
 
 .#{$b}__section {
-	padding: $section-padding-y-desktop $spacing-lg;
+	padding-top: $section-padding-y-desktop;
+	padding-bottom: $section-padding-y-desktop;
 
-	@media (min-width: $breakpoint-md) {
-		padding-left: $spacing-5xl;
-		padding-right: $spacing-5xl;
+	@media (max-width: $breakpoint-md) {
+		padding-top: $section-padding-y-tablet;
+		padding-bottom: $section-padding-y-tablet;
+	}
+
+	@media (max-width: $breakpoint-sm) {
+		padding-top: $section-padding-y-mobile;
+		padding-bottom: $section-padding-y-mobile;
 	}
 
 	&--muted {
 		background: $secondary-40;
+	}
+
+	&--first {
+		@media (max-width: $breakpoint-sm) {
+			margin-top: -64px;
+			position: relative;
+			z-index: 10;
+			padding-top: 0;
+		}
 	}
 }
 
@@ -150,6 +169,13 @@ $b: 'histoire';
 	border-left: 4px solid $leaf;
 	padding: $spacing-3xl;
 	box-shadow: $shadow-soft;
+
+	@media (max-width: $breakpoint-sm) {
+		background: #ffffff;
+		border-left: none;
+		border-top: 4px solid $sunshine;
+		box-shadow: $shadow-elegant;
+	}
 }
 
 .#{$b}__block-eyebrow {

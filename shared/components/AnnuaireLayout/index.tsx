@@ -1,9 +1,10 @@
 'use client';
 
 import { useMemo, useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { ChevronRight, ChevronDown, SlidersHorizontal, type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 import ContactCard, { type ContactItem, type IconVariant } from '@shared/components/ContactCard';
+import Breadcrumb from '@shared/components/Breadcrumb';
+import FilterBar from '@shared/components/FilterBar';
 import './style.scss';
 
 const B = 'annuaire';
@@ -93,11 +94,7 @@ export default function AnnuaireLayout({
 				<div className={`${B}__hero-blur ${B}__hero-blur--top`} />
 				<div className={`${B}__hero-blur ${B}__hero-blur--bottom`} />
 				<div className={`${B}__hero-content`}>
-					<nav className={`${B}__breadcrumb`}>
-						<Link href="/">Accueil</Link>
-						<ChevronRight size={14} />
-						<span>{breadcrumbLabel}</span>
-					</nav>
+					<Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: breadcrumbLabel }]} />
 					<p className={`${B}__eyebrow`}>
 						<EyebrowIcon size={14} />
 						{eyebrowText}
@@ -122,38 +119,16 @@ export default function AnnuaireLayout({
 				<div ref={sentinelRef} style={{ height: 1 }} />
 
 				{/* Filtres full-width */}
-				<div className={`${B}__filters${stuck ? ` ${B}__filters--stuck` : ''}`}>
-					<div className="container">
-						<button
-							className={`${B}__filters-toggle`}
-							onClick={() => setFiltersOpen((o) => !o)}
-						>
-							<SlidersHorizontal size={14} />
-							<span>Filtres</span>
-							{active !== filters[0] && <span className={`${B}__filters-badge`}>1</span>}
-							<ChevronDown
-								size={14}
-								className={`${B}__filters-arrow${filtersOpen ? ` ${B}__filters-arrow--open` : ''}`}
-							/>
-						</button>
-						<div className={`${B}__filters-panel${filtersOpen ? ` ${B}__filters-panel--open` : ''}`}>
-							<div className={`${B}__filters-panel-inner`}>
-								<div className={`${B}__filters-pills`}>
-									{filters.map((f) => (
-										<button
-											key={f}
-											onClick={() => { setActive(f); setFiltersOpen(false); }}
-											className={`${B}__filter${active === f ? ` ${B}__filter--active` : ''}`}
-										>
-											{f}
-											<span className={`${B}__filter-count`}>{counts[f] ?? 0}</span>
-										</button>
-									))}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<FilterBar
+					filters={filters}
+					active={active}
+					counts={counts}
+					onSelect={(f) => { setActive(f); setFiltersOpen(false); }}
+					stuck={stuck}
+					filtersOpen={filtersOpen}
+					onToggle={() => setFiltersOpen((o) => !o)}
+					variant="warm"
+				/>
 
 				{/* Grille */}
 				<div className={`${B}__body container`}>
