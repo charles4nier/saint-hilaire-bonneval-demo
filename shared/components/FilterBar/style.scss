@@ -19,9 +19,11 @@ $b: 'filter-bar';
 	}
 
 	&--stuck-warm {
-		background: $gradient-warm;
-		border-bottom-color: oklch(0.72 0.18 18 / 0.4);
-		box-shadow: 0 4px 24px -8px oklch(0.84 0.17 88 / 0.25);
+		@media (min-width: 1025px) {
+			background: $gradient-warm;
+			border-bottom-color: oklch(0.72 0.18 18 / 0.4);
+			box-shadow: 0 4px 24px -8px oklch(0.84 0.17 88 / 0.25);
+		}
 	}
 }
 
@@ -38,16 +40,33 @@ $b: 'filter-bar';
 		gap: $spacing-sm;
 		width: 100%;
 		padding: 10px 16px;
-		border: none;
+		border: 1px solid $border;
 		border-radius: 999px;
 		font-size: 13px;
 		font-weight: $font-weight-medium;
-		color: #000000;
-		background: $gradient-warm;
+		color: $foreground;
+		background: $secondary;
 		cursor: pointer;
 		transition: $transition-smooth;
 
-		&:hover { opacity: 0.9; }
+		&:hover {
+			border-color: $primary;
+			color: $primary;
+		}
+
+		&--warm {
+			background: $gradient-warm;
+			border-color: transparent;
+			color: #000;
+
+			svg { color: #000; }
+
+			&:hover {
+				border-color: transparent;
+				color: #000;
+				opacity: 0.9;
+			}
+		}
 	}
 }
 
@@ -82,7 +101,7 @@ $b: 'filter-bar';
 		display: grid;
 		grid-template-rows: 0fr;
 		transition: grid-template-rows 0.3s $ease-smooth;
-		margin-top: $spacing-sm;
+		margin-top: $spacing-md;
 
 		&--open { grid-template-rows: 1fr; }
 	}
@@ -92,18 +111,18 @@ $b: 'filter-bar';
 
 .#{$b}__panel-inner {
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: $spacing-lg;
 
-	@media (min-width: $breakpoint-md + 1) {
-		display: flex;
-		flex-wrap: wrap;
-		gap: $spacing-sm;
-	}
 }
 
 .#{$b}__pills {
 	display: flex;
 	flex-wrap: wrap;
 	gap: $spacing-sm;
+
+	&--numeric .#{$b}__pill { font-variant-numeric: tabular-nums; }
 }
 
 /* ========================

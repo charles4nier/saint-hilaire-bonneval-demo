@@ -123,9 +123,6 @@
 			gap: $spacing-md;
 		}
 
-		&__card--featured .discover__card-image-wrap {
-			aspect-ratio: 16 / 9;
-		}
 	}
 
 	@media (max-width: $breakpoint-sm) {

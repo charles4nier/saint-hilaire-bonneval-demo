@@ -2,7 +2,8 @@
 
 import { useMemo, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, FileText, Download, BookOpen, SlidersHorizontal } from 'lucide-react';
+import { ChevronRight, FileText, Download, BookOpen } from 'lucide-react';
+import FilterBar from '@shared/components/FilterBar';
 import './style.scss';
 
 const CLASS_NAME = 'documents';
@@ -89,10 +90,12 @@ export default function DocumentsPage() {
 	const [stuck, setStuck] = useState(false);
 	const sentinelRef = useRef<HTMLDivElement>(null);
 
-	const years = useMemo(() => {
+	const yearValues = useMemo(() => {
 		const set = new Set(docs.map((d) => new Date(d.date).getFullYear()));
 		return Array.from(set).sort((a, b) => b - a);
 	}, []);
+
+	const yearFilters = useMemo(() => ['Toutes les années', ...yearValues.map(String)], [yearValues]);
 
 	const filtered = useMemo(() => {
 		return docs.filter((d) => {
@@ -148,70 +151,33 @@ export default function DocumentsPage() {
 
 			{/* Documents */}
 			<section className={`${CLASS_NAME}__section`}>
-				<div className={`${CLASS_NAME}__inner container`}>
 
-					<div className={`${CLASS_NAME}__header`}>
-						<p className={`${CLASS_NAME}__header-eyebrow`}>Archives officielles</p>
-						<h2 className={`${CLASS_NAME}__header-title`}>
-							{filtered.length} {filtered.length > 1 ? 'documents' : 'document'}
-						</h2>
-						<div className={`${CLASS_NAME}__header-divider`} />
-					</div>
+				<div className={`${CLASS_NAME}__header container`}>
+					<p className={`${CLASS_NAME}__header-eyebrow`}>Archives officielles</p>
+					<h2 className={`${CLASS_NAME}__header-title`}>
+						{filtered.length} {filtered.length > 1 ? 'documents' : 'document'}
+					</h2>
+					<div className={`${CLASS_NAME}__header-divider`} />
+				</div>
 
-					{/* Filtres */}
-					<div ref={sentinelRef} style={{ height: 1, marginBottom: -1 }} />
-					<div className={`${CLASS_NAME}__filters${stuck ? ` ${CLASS_NAME}__filters--stuck` : ''}`}>
-						<button
-							className={`${CLASS_NAME}__filters-toggle`}
-							onClick={() => setFiltersOpen((o) => !o)}
-						>
-							<SlidersHorizontal size={14} />
-							<span>Filtres</span>
-							{(activeType !== 'Tous' || activeYear !== 'Tous') && (
-								<span className={`${CLASS_NAME}__filters-badge`}>
-									{[activeType !== 'Tous', activeYear !== 'Tous'].filter(Boolean).length}
-								</span>
-							)}
-							<ChevronDown size={14} className={`${CLASS_NAME}__filters-arrow${filtersOpen ? ` ${CLASS_NAME}__filters-arrow--open` : ''}`} />
-						</button>
-						<div className={`${CLASS_NAME}__filters-panel${filtersOpen ? ` ${CLASS_NAME}__filters-panel--open` : ''}`}>
-							<div className={`${CLASS_NAME}__filters-panel-inner`}>
-								<div className={`${CLASS_NAME}__filters-row`}>
-									{types.map((t) => (
-										<button
-											key={t}
-											onClick={() => setActiveType(t)}
-											className={`${CLASS_NAME}__filter ${activeType === t ? `${CLASS_NAME}__filter--active` : ''}`}
-										>
-											{t}
-											<span className={`${CLASS_NAME}__filter-count`}>
-												{t === 'Tous' ? docs.length : (counts[t as DocumentType] ?? 0)}
-											</span>
-										</button>
-									))}
-								</div>
-								<div className={`${CLASS_NAME}__filters-row`}>
-									<button
-										onClick={() => setActiveYear('Tous')}
-										className={`${CLASS_NAME}__filter ${CLASS_NAME}__filter--year ${activeYear === 'Tous' ? `${CLASS_NAME}__filter--active` : ''}`}
-									>
-										Toutes les années
-									</button>
-									{years.map((y) => (
-										<button
-											key={y}
-											onClick={() => setActiveYear(y)}
-											className={`${CLASS_NAME}__filter ${CLASS_NAME}__filter--year ${activeYear === y ? `${CLASS_NAME}__filter--active` : ''}`}
-										>
-											{y}
-										</button>
-									))}
-								</div>
-							</div>
-						</div>
-					</div>
+				<div ref={sentinelRef} style={{ height: 1 }} />
+				<FilterBar
+					filters={types}
+					active={activeType}
+					counts={counts as Record<string, number>}
+					onSelect={(f) => { setActiveType(f as typeof activeType); setFiltersOpen(false); }}
+					stuck={stuck}
+					filtersOpen={filtersOpen}
+					onToggle={() => setFiltersOpen((o) => !o)}
+					variant="warm"
+					secondary={{
+						filters: yearFilters,
+						active: activeYear === 'Tous' ? 'Toutes les années' : String(activeYear),
+						onSelect: (f) => { setActiveYear(f === 'Toutes les années' ? 'Tous' : Number(f)); setFiltersOpen(false); },
+					}}
+				/>
 
-					{/* Grille */}
+				<div className={`${CLASS_NAME}__body container`}>
 					{filtered.length > 0 ? (
 						<div className={`${CLASS_NAME}__grid`}>
 							{filtered
@@ -243,6 +209,7 @@ export default function DocumentsPage() {
 						<p className={`${CLASS_NAME}__empty`}>Aucun document pour cette sélection.</p>
 					)}
 				</div>
+
 			</section>
 		</>
 	);

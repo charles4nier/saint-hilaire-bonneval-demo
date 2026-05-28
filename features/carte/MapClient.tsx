@@ -161,6 +161,10 @@ export default function MapClient({ initialId }: Props) {
 	const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	useEffect(() => {
 		fetch('https://geo.api.gouv.fr/communes/87148?fields=contour')
 			.then((r) => r.json())
 			.then((data) => {

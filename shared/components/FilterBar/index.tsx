@@ -5,6 +5,12 @@ import './style.scss';
 
 const B = 'filter-bar';
 
+type SecondaryGroup = {
+	filters: string[];
+	active: string;
+	onSelect: (filter: string) => void;
+};
+
 type Props = {
 	filters: string[];
 	active: string;
@@ -14,6 +20,7 @@ type Props = {
 	filtersOpen: boolean;
 	onToggle: () => void;
 	variant?: 'default' | 'warm';
+	secondary?: SecondaryGroup;
 };
 
 export default function FilterBar({
@@ -25,19 +32,25 @@ export default function FilterBar({
 	filtersOpen,
 	onToggle,
 	variant = 'default',
+	secondary,
 }: Props) {
 	const modifiers = [
 		stuck && `${B}--stuck`,
 		stuck && variant === 'warm' && `${B}--stuck-warm`,
 	].filter(Boolean).join(' ');
 
+	const badgeCount = [
+		active !== filters[0],
+		secondary && secondary.active !== secondary.filters[0],
+	].filter(Boolean).length;
+
 	return (
 		<div className={`${B} ${modifiers}`}>
 			<div className="container">
-				<button className={`${B}__toggle`} onClick={onToggle}>
+				<button className={`${B}__toggle${variant === 'warm' ? ` ${B}__toggle--warm` : ''}`} onClick={onToggle}>
 					<SlidersHorizontal size={14} />
 					<span>Filtres</span>
-					{active !== filters[0] && <span className={`${B}__badge`}>1</span>}
+					{badgeCount > 0 && <span className={`${B}__badge`}>{badgeCount}</span>}
 					<ChevronDown
 						size={14}
 						className={`${B}__arrow${filtersOpen ? ` ${B}__arrow--open` : ''}`}
@@ -57,6 +70,19 @@ export default function FilterBar({
 								</button>
 							))}
 						</div>
+						{secondary && (
+							<div className={`${B}__pills ${B}__pills--numeric`}>
+								{secondary.filters.map((f) => (
+									<button
+										key={f}
+										onClick={() => secondary.onSelect(f)}
+										className={`${B}__pill${secondary.active === f ? ` ${B}__pill--active` : ''}`}
+									>
+										{f}
+									</button>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

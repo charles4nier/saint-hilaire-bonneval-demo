@@ -2,10 +2,10 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import FilterBar from '@shared/components/FilterBar';
 import {
 	ChevronRight,
 	ChevronDown,
-	SlidersHorizontal,
 	ExternalLink,
 	Baby,
 	Heart,
@@ -413,45 +413,19 @@ export default function DemarchesPage() {
 
 			{/* Démarches */}
 			<section className={`${CLASS_NAME}__section`}>
-				<div className={`${CLASS_NAME}__inner container`}>
-					<div ref={sentinelRef} style={{ height: 1, marginBottom: -1 }} />
-					<div className={`${CLASS_NAME}__filters${stuck ? ` ${CLASS_NAME}__filters--stuck` : ''}`}>
-						<button
-							className={`${CLASS_NAME}__filters-toggle`}
-							onClick={() => setFiltersOpen((o) => !o)}
-						>
-							<SlidersHorizontal size={14} />
-							<span>Filtres</span>
-							{active !== 'Tous' && (
-								<span className={`${CLASS_NAME}__filters-badge`}>1</span>
-							)}
-							<ChevronDown
-								size={14}
-								className={`${CLASS_NAME}__filters-arrow${filtersOpen ? ` ${CLASS_NAME}__filters-arrow--open` : ''}`}
-							/>
-						</button>
-						<div className={`${CLASS_NAME}__filters-panel${filtersOpen ? ` ${CLASS_NAME}__filters-panel--open` : ''}`}>
-							<div className={`${CLASS_NAME}__filters-panel-inner`}>
-								<div className={`${CLASS_NAME}__filters-pills`}>
-									{filters.map((f) => {
-										const isActive = f === active;
-										const count = counts[f as 'Tous' | Category] ?? 0;
-										return (
-											<button
-												key={f}
-												onClick={() => setActive(f)}
-												className={`${CLASS_NAME}__filter${isActive ? ` ${CLASS_NAME}__filter--active` : ''}`}
-											>
-												{f}
-												<span className={`${CLASS_NAME}__filter-count`}>{count}</span>
-											</button>
-										);
-									})}
-								</div>
-							</div>
-						</div>
-					</div>
+				<div ref={sentinelRef} style={{ height: 1 }} />
+				<FilterBar
+					filters={filters}
+					active={active}
+					counts={counts as Record<string, number>}
+					onSelect={(f) => { setActive(f as typeof active); setFiltersOpen(false); }}
+					stuck={stuck}
+					filtersOpen={filtersOpen}
+					onToggle={() => setFiltersOpen((o) => !o)}
+					variant="warm"
+				/>
 
+				<div className={`${CLASS_NAME}__body container`}>
 					<div className={`${CLASS_NAME}__list`}>
 						{filtered.map((item) => (
 							<AccordionItem key={item.id} item={item} />
