@@ -13,7 +13,7 @@ $b: 'elus';
 	padding-left: $spacing-lg;
 	padding-right: $spacing-lg;
 	overflow: hidden;
-	background: $gradient-forest;
+	background: $gradient-primary;
 	color: #ffffff;
 	text-align: center;
 
@@ -40,7 +40,7 @@ $b: 'elus';
 	&--bottom {
 		bottom: -128px;
 		left: -96px;
-		background: $leaf-40;
+		background: $primary-30;
 	}
 }
 

@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'commerces';
+$b: 'annuaire';
 
 /* ========================
    Hero
@@ -13,7 +13,6 @@ $b: 'commerces';
 	padding-left: $spacing-lg;
 	padding-right: $spacing-lg;
 	overflow: hidden;
-	background: $gradient-primary;
 	color: #ffffff;
 	text-align: center;
 
@@ -31,17 +30,8 @@ $b: 'commerces';
 	filter: blur(80px);
 	pointer-events: none;
 
-	&--top {
-		top: -96px;
-		right: -96px;
-		background: $sunshine-25;
-	}
-
-	&--bottom {
-		bottom: -128px;
-		left: -96px;
-		background: $primary-30;
-	}
+	&--top    { top: -96px;    right: -96px; background: $coral-15; }
+	&--bottom { bottom: -128px; left: -96px; background: $primary-30; }
 }
 
 .#{$b}__hero-content {
@@ -51,17 +41,23 @@ $b: 'commerces';
 }
 
 .#{$b}__breadcrumb {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
-	justify-content: center;
 	gap: $spacing-sm;
 	font-size: 12px;
-	color: rgba(255, 255, 255, 0.8);
-	margin-bottom: $spacing-lg;
+	font-weight: $font-weight-medium;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.15);
+	color: #ffffff;
+	margin-bottom: $spacing-xl;
 
-	a:hover {
-		color: #ffffff;
+	a {
+		color: inherit;
+		&:hover { opacity: 0.8; }
 	}
+
+	svg { opacity: 0.7; }
 }
 
 .#{$b}__eyebrow {
@@ -100,7 +96,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Section annuaire
+   Section
    ======================== */
 
 .#{$b}__section {
@@ -108,11 +104,17 @@ $b: 'commerces';
 	padding-bottom: $section-padding-y-desktop;
 }
 
-.#{$b}__header {
-	margin-bottom: $spacing-4xl;
+/* ========================
+   Header
+   ======================== */
+
+.#{$b}__head {
+	padding-bottom: $spacing-3xl;
+	border-bottom: 1px solid $border;
+	margin-bottom: 0;
 }
 
-.#{$b}__header-eyebrow {
+.#{$b}__head-eyebrow {
 	font-size: $xs-size-desktop;
 	font-weight: $font-weight-bold;
 	text-transform: uppercase;
@@ -120,7 +122,7 @@ $b: 'commerces';
 	color: $primary;
 }
 
-.#{$b}__header-title {
+.#{$b}__head-title {
 	font-family: $font-display;
 	font-size: $h2-size-desktop;
 	font-weight: $font-weight-semibold;
@@ -129,7 +131,7 @@ $b: 'commerces';
 	color: $foreground;
 }
 
-.#{$b}__header-divider {
+.#{$b}__head-divider {
 	width: 64px;
 	height: 4px;
 	background: $coral;
@@ -137,7 +139,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Filtres
+   Filtres full-width
    ======================== */
 
 .#{$b}__filters {
@@ -147,23 +149,9 @@ $b: 'commerces';
 	background: $background;
 	padding-top: $spacing-lg;
 	padding-bottom: $spacing-lg;
-	width: 100vw;
-	margin-left: calc(50% - 50vw);
-	padding-left: max(#{$container-padding-x-desktop}, calc((100vw - #{$container-max-width}) / 2 + #{$container-padding-x-desktop}));
-	padding-right: max(#{$container-padding-x-desktop}, calc((100vw - #{$container-max-width}) / 2 + #{$container-padding-x-desktop}));
 	margin-bottom: $spacing-3xl;
 	border-bottom: 1px solid transparent;
 	transition: border-color 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
-
-	@media (max-width: $breakpoint-md) {
-		padding-left: $container-padding-x-tablet;
-		padding-right: $container-padding-x-tablet;
-	}
-
-	@media (max-width: $breakpoint-sm) {
-		padding-left: $container-padding-x-mobile;
-		padding-right: $container-padding-x-mobile;
-	}
 
 	&--stuck {
 		background: $gradient-warm;
@@ -216,9 +204,7 @@ $b: 'commerces';
 	color: $muted-foreground;
 	transition: transform 0.25s $ease-smooth;
 
-	&--open {
-		transform: rotate(180deg);
-	}
+	&--open { transform: rotate(180deg); }
 }
 
 .#{$b}__filters-panel {
@@ -228,14 +214,10 @@ $b: 'commerces';
 		transition: grid-template-rows 0.3s $ease-smooth;
 		margin-top: $spacing-sm;
 
-		&--open {
-			grid-template-rows: 1fr;
-		}
+		&--open { grid-template-rows: 1fr; }
 	}
 
-	@media (min-width: $breakpoint-md + 1) {
-		display: block;
-	}
+	@media (min-width: $breakpoint-md + 1) { display: block; }
 }
 
 .#{$b}__filters-panel-inner {
@@ -269,8 +251,8 @@ $b: 'commerces';
 	transition: $transition-smooth;
 
 	&:hover {
-		border-color: $leaf;
-		color: $leaf;
+		border-color: $primary;
+		color: $primary;
 	}
 
 	&--active {
@@ -278,13 +260,8 @@ $b: 'commerces';
 		color: $background;
 		border-color: $foreground;
 
-		.#{$b}__filter-count {
-			color: rgba(255, 255, 255, 0.6);
-		}
-
-		&:hover {
-			color: $background;
-		}
+		.#{$b}__filter-count { color: rgba(255, 255, 255, 0.6); }
+		&:hover { color: $background; }
 	}
 }
 
@@ -295,7 +272,7 @@ $b: 'commerces';
 }
 
 /* ========================
-   Grille de cartes
+   Grille
    ======================== */
 
 .#{$b}__grid {
@@ -303,17 +280,12 @@ $b: 'commerces';
 	grid-template-columns: 1fr;
 	gap: $spacing-xl;
 
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr 1fr;
-	}
-
-	@media (min-width: $breakpoint-md) {
-		grid-template-columns: repeat(3, 1fr);
-	}
+	@media (min-width: $breakpoint-sm) { grid-template-columns: 1fr 1fr; }
+	@media (min-width: $breakpoint-md) { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ========================
-   Encart référencement
+   CTA Banner
    ======================== */
 
 .#{$b}__cta-banner {
@@ -361,11 +333,6 @@ $b: 'commerces';
 	background-color: $leaf;
 	align-self: flex-start;
 
-	@media (min-width: $breakpoint-sm) {
-		align-self: center;
-	}
-
-	&:hover {
-		background-color: oklch(0.54 0.16 150);
-	}
+	@media (min-width: $breakpoint-sm) { align-self: center; }
+	&:hover { background-color: oklch(0.54 0.16 150); }
 }

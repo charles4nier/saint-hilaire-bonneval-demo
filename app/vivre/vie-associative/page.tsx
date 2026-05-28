@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@shared/config/seo';
-import ComingSoon from '@shared/components/ComingSoon';
+import VieAssociativePage from '@features/vie-associative';
 
 export const metadata: Metadata = generatePageMetadata({
 	title: 'Vie associative',
-	description: 'Associations et vie associative de Saint-Hilaire-Bonneval.',
+	description: 'Les associations de Saint-Hilaire-Bonneval : sport, culture, éducation et citoyenneté.',
 	path: '/vivre/vie-associative'
 });
 
 export default function Page() {
-	return <ComingSoon title="Vie associative" section="Vivre à Saint-Hilaire" sectionHref="/vivre/vie-associative" />;
+	return <VieAssociativePage />;
 }

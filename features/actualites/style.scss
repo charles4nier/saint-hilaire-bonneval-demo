@@ -13,7 +13,7 @@ $b: 'actualites';
 	padding-left: $spacing-lg;
 	padding-right: $spacing-lg;
 	overflow: hidden;
-	background: $gradient-forest;
+	background: $gradient-primary;
 	color: #ffffff;
 	text-align: center;
 
@@ -40,7 +40,7 @@ $b: 'actualites';
 	&--bottom {
 		bottom: -128px;
 		left: -96px;
-		background: $leaf-40;
+		background: $primary-30;
 	}
 }
 
@@ -151,37 +151,28 @@ $b: 'actualites';
 	background: $background;
 	padding-top: $spacing-lg;
 	padding-bottom: $spacing-lg;
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	padding-left: max(#{$container-padding-x-desktop}, calc((100vw - #{$container-max-width}) / 2 + #{$container-padding-x-desktop}));
+	padding-right: max(#{$container-padding-x-desktop}, calc((100vw - #{$container-max-width}) / 2 + #{$container-padding-x-desktop}));
 	margin-bottom: $spacing-3xl;
 	border-bottom: 1px solid transparent;
-	transition: border-color 0.2s ease;
+	transition: border-color 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
 
-	&::before,
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 50vw;
-		background: $background;
-		border-bottom: 1px solid transparent;
-		transition: border-color 0.2s ease;
+	@media (max-width: $breakpoint-md) {
+		padding-left: $container-padding-x-tablet;
+		padding-right: $container-padding-x-tablet;
 	}
 
-	&::before {
-		right: 100%;
-	}
-
-	&::after {
-		left: 100%;
+	@media (max-width: $breakpoint-sm) {
+		padding-left: $container-padding-x-mobile;
+		padding-right: $container-padding-x-mobile;
 	}
 
 	&--stuck {
-		border-bottom-color: $border;
-
-		&::before,
-		&::after {
-			border-bottom-color: $border;
-		}
+		background: $gradient-warm;
+		border-bottom-color: oklch(0.72 0.18 18 / 0.4);
+		box-shadow: 0 4px 24px -8px oklch(0.84 0.17 88 / 0.25);
 	}
 }
 
@@ -276,7 +267,7 @@ $b: 'actualites';
 	font-size: 12px;
 	font-weight: $font-weight-medium;
 	border: 1px solid $border;
-	background: transparent;
+	background: $secondary;
 	color: $foreground-80;
 	cursor: pointer;
 	transition: $transition-smooth;

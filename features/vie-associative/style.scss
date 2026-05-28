@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'commerces';
+$b: 'associations';
 
 /* ========================
    Hero
@@ -59,9 +59,7 @@ $b: 'commerces';
 	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: $spacing-lg;
 
-	a:hover {
-		color: #ffffff;
-	}
+	a:hover { color: #ffffff; }
 }
 
 .#{$b}__eyebrow {
@@ -216,9 +214,7 @@ $b: 'commerces';
 	color: $muted-foreground;
 	transition: transform 0.25s $ease-smooth;
 
-	&--open {
-		transform: rotate(180deg);
-	}
+	&--open { transform: rotate(180deg); }
 }
 
 .#{$b}__filters-panel {
@@ -228,14 +224,10 @@ $b: 'commerces';
 		transition: grid-template-rows 0.3s $ease-smooth;
 		margin-top: $spacing-sm;
 
-		&--open {
-			grid-template-rows: 1fr;
-		}
+		&--open { grid-template-rows: 1fr; }
 	}
 
-	@media (min-width: $breakpoint-md + 1) {
-		display: block;
-	}
+	@media (min-width: $breakpoint-md + 1) { display: block; }
 }
 
 .#{$b}__filters-panel-inner {
@@ -278,13 +270,9 @@ $b: 'commerces';
 		color: $background;
 		border-color: $foreground;
 
-		.#{$b}__filter-count {
-			color: rgba(255, 255, 255, 0.6);
-		}
+		.#{$b}__filter-count { color: rgba(255, 255, 255, 0.6); }
 
-		&:hover {
-			color: $background;
-		}
+		&:hover { color: $background; }
 	}
 }
 
@@ -303,17 +291,13 @@ $b: 'commerces';
 	grid-template-columns: 1fr;
 	gap: $spacing-xl;
 
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr 1fr;
-	}
-
-	@media (min-width: $breakpoint-md) {
-		grid-template-columns: repeat(3, 1fr);
-	}
+	@media (min-width: $breakpoint-sm) { grid-template-columns: 1fr 1fr; }
+	@media (min-width: $breakpoint-md) { grid-template-columns: repeat(3, 1fr); }
 }
 
+
 /* ========================
-   Encart référencement
+   Encart
    ======================== */
 
 .#{$b}__cta-banner {
@@ -361,11 +345,7 @@ $b: 'commerces';
 	background-color: $leaf;
 	align-self: flex-start;
 
-	@media (min-width: $breakpoint-sm) {
-		align-self: center;
-	}
+	@media (min-width: $breakpoint-sm) { align-self: center; }
 
-	&:hover {
-		background-color: oklch(0.54 0.16 150);
-	}
+	&:hover { background-color: oklch(0.54 0.16 150); }
 }

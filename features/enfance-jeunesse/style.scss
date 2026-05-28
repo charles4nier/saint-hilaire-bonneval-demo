@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'commerces';
+$b: 'enfance';
 
 /* ========================
    Hero
@@ -34,7 +34,7 @@ $b: 'commerces';
 	&--top {
 		top: -96px;
 		right: -96px;
-		background: $sunshine-25;
+		background: $coral-15;
 	}
 
 	&--bottom {
@@ -59,9 +59,7 @@ $b: 'commerces';
 	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: $spacing-lg;
 
-	a:hover {
-		color: #ffffff;
-	}
+	a:hover { color: #ffffff; }
 }
 
 .#{$b}__eyebrow {
@@ -216,9 +214,7 @@ $b: 'commerces';
 	color: $muted-foreground;
 	transition: transform 0.25s $ease-smooth;
 
-	&--open {
-		transform: rotate(180deg);
-	}
+	&--open { transform: rotate(180deg); }
 }
 
 .#{$b}__filters-panel {
@@ -228,14 +224,10 @@ $b: 'commerces';
 		transition: grid-template-rows 0.3s $ease-smooth;
 		margin-top: $spacing-sm;
 
-		&--open {
-			grid-template-rows: 1fr;
-		}
+		&--open { grid-template-rows: 1fr; }
 	}
 
-	@media (min-width: $breakpoint-md + 1) {
-		display: block;
-	}
+	@media (min-width: $breakpoint-md + 1) { display: block; }
 }
 
 .#{$b}__filters-panel-inner {
@@ -269,8 +261,8 @@ $b: 'commerces';
 	transition: $transition-smooth;
 
 	&:hover {
-		border-color: $leaf;
-		color: $leaf;
+		border-color: $primary;
+		color: $primary;
 	}
 
 	&--active {
@@ -278,13 +270,9 @@ $b: 'commerces';
 		color: $background;
 		border-color: $foreground;
 
-		.#{$b}__filter-count {
-			color: rgba(255, 255, 255, 0.6);
-		}
+		.#{$b}__filter-count { color: rgba(255, 255, 255, 0.6); }
 
-		&:hover {
-			color: $background;
-		}
+		&:hover { color: $background; }
 	}
 }
 
@@ -303,69 +291,7 @@ $b: 'commerces';
 	grid-template-columns: 1fr;
 	gap: $spacing-xl;
 
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr 1fr;
-	}
-
-	@media (min-width: $breakpoint-md) {
-		grid-template-columns: repeat(3, 1fr);
-	}
+	@media (min-width: $breakpoint-sm) { grid-template-columns: 1fr 1fr; }
+	@media (min-width: $breakpoint-md) { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* ========================
-   Encart référencement
-   ======================== */
-
-.#{$b}__cta-banner {
-	margin-top: $spacing-5xl;
-	background: $leaf-15;
-	border-left: 4px solid $leaf;
-	padding: $spacing-3xl;
-	box-shadow: $shadow-soft;
-	display: grid;
-	gap: $spacing-lg;
-	align-items: center;
-
-	@media (min-width: $breakpoint-sm) {
-		grid-template-columns: 1fr auto;
-		padding: $spacing-3xl $spacing-4xl;
-	}
-}
-
-.#{$b}__cta-eyebrow {
-	font-size: $xs-size-desktop;
-	font-weight: $font-weight-bold;
-	text-transform: uppercase;
-	letter-spacing: 0.22em;
-	color: $leaf;
-}
-
-.#{$b}__cta-title {
-	font-family: $font-display;
-	font-size: clamp(18px, 2vw, 24px);
-	font-weight: $font-weight-semibold;
-	line-height: $line-height-snug;
-	margin-top: $spacing-sm;
-	color: $foreground;
-}
-
-.#{$b}__cta-desc {
-	margin-top: $spacing-sm;
-	font-size: $small-size-desktop;
-	color: $foreground-80;
-	line-height: $line-height-relaxed;
-	max-width: 640px;
-}
-
-.#{$b}__cta-btn {
-	background-color: $leaf;
-	align-self: flex-start;
-
-	@media (min-width: $breakpoint-sm) {
-		align-self: center;
-	}
-
-	&:hover {
-		background-color: oklch(0.54 0.16 150);
-	}
-}
