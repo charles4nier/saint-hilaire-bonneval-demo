@@ -552,6 +552,7 @@ export default function MapClient({ initialId }: Props) {
 					<button
 						className="carte__sheet-filters-toggle"
 						onClick={() => setFiltersExpanded((o) => !o)}
+						aria-expanded={filtersExpanded}
 					>
 						<SlidersHorizontal size={13} aria-hidden="true" />
 						<span>Filtres</span>

@@ -38,11 +38,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="fr" className={`${cormorant.variable} ${caveat.variable}`}>
 			<body>
-				<a href="#contenu" className="skip-link">
-					Aller au contenu principal
-				</a>
+				<nav className="skip-links" aria-label="Liens d'évitement">
+					<a href="#contenu" className="skip-link">
+						Aller au contenu principal
+					</a>
+					<a href="#actions-rapides" className="skip-link">
+						Accéder aux actions rapides
+					</a>
+				</nav>
 				<Header />
-				<main id="contenu">{children}</main>
+				<main id="contenu" tabIndex={-1}>
+					{children}
+				</main>
 				<Footer />
 				<FloatingButtons />
 			</body>

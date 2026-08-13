@@ -34,6 +34,7 @@ $b: 'floating';
 	flex-direction: column;
 	gap: 12px;
 	z-index: 100;
+	border-radius: 16px;
 
 	@media (max-width: $breakpoint-sm) {
 		bottom: 20px;
@@ -136,6 +137,9 @@ $b: 'floating';
 	display: flex;
 	align-items: center;
 	gap: $spacing-sm + 4px;
+	// Comes second in the DOM (the close button is first, so it's the first
+	// thing focus lands on) but stays visually first/left via order.
+	order: -1;
 }
 
 .#{$b}__modal-icon {

@@ -272,6 +272,7 @@ export default function Header() {
 							aria-label={
 								isOpen ? 'Fermer le menu' : 'Ouvrir le menu'
 							}
+							aria-expanded={isOpen}
 						>
 							{isOpen ? (
 								<X size={22} aria-hidden="true" />

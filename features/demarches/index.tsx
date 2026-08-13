@@ -613,7 +613,7 @@ export default function DemarchesPage() {
 			<section className={`${CLASS_NAME}__section`}>
 				<div className={`${CLASS_NAME}__header container`}>
 					<p className={`${CLASS_NAME}__header-eyebrow`}>Toutes les démarches</p>
-					<h2 className={`${CLASS_NAME}__header-title`}>
+					<h2 className={`${CLASS_NAME}__header-title`} aria-live="polite">
 						{filtered.length} {filtered.length > 1 ? 'démarches' : 'démarche'}
 					</h2>
 					<div className={`${CLASS_NAME}__header-divider`} />

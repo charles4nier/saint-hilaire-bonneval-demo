@@ -29,6 +29,19 @@ body {
 	color: inherit;
 }
 
+// White ring first, black ring right outside it: whatever the background
+// behind a focused element — including the site's own brand colors, which a
+// single-color ring can vanish against (e.g. a blue ring on a blue button)
+// — at least one of the two always contrasts. :where() carries zero
+// specificity on purpose, so a more specific selector (see main below) can
+// override it without any fuss.
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+	outline: none;
+	box-shadow:
+		0 0 0 2px #fff,
+		0 0 0 4px #000;
+}
+
 body {
 	width: 100%;
 	line-height: $line-height-normal;
@@ -41,25 +54,63 @@ body {
 
 main {
 	position: relative;
+
+	// main is otherwise just a transparent wrapper — without an explicit
+	// style here, landing on it via the skip link (or programmatically) is
+	// functionally correct but visually silent, which reads as "broken" even
+	// though focus did move. `:focus-visible` keeps this from firing on an
+	// ordinary mouse click. Drawn inward (negative offset / inset shadow)
+	// since main spans the full viewport — an outward ring would sit outside
+	// the visible page entirely.
+	&:focus-visible {
+		outline: 2px solid #fff;
+		outline-offset: -2px;
+		box-shadow: inset 0 0 0 4px #000;
+	}
 }
 
-// Off-screen until it receives keyboard focus, then jumps into view above
-// everything else on the page — lets keyboard users skip the header/nav on
-// every page instead of tabbing through it each time.
-.skip-link {
-	position: absolute;
-	top: -100%;
-	left: $spacing-md;
+// Collapsed to nothing until a link inside receives focus — the container
+// carries all the hide/show logic (height, spacing, overflow); the links
+// themselves keep one plain, static style throughout, nothing moves on them
+// individually. Tabbing into the group reveals the whole little menu at
+// once, stacked in DOM order, instead of each link toggling on its own.
+.skip-links {
+	position: relative;
 	z-index: 999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 0;
+	overflow: hidden;
+	gap: 0;
+	padding: 0;
+	// Same surface as the header bar below it, so the expanded menu reads as
+	// part of the same UI instead of a mismatched strip on top of it.
+	background: $background-95;
+
+	&:focus-within {
+		height: auto;
+		overflow: visible;
+		gap: $spacing-xs;
+		padding: $spacing-sm 0;
+	}
+}
+
+// Header is fixed, so it doesn't naturally get pushed down by skip-links
+// expanding in flow above it — without this the two would just overlap.
+// ~56px matches skip-links' own expanded height (one pill row + its padding).
+.skip-links:focus-within ~ .header {
+	top: 56px;
+}
+
+.skip-link {
 	padding: $spacing-sm $spacing-lg;
+	border-radius: 999px;
 	background: $primary;
 	color: $primary-foreground;
 	font-size: $small-size-desktop;
 	font-weight: $font-weight-semibold;
-
-	&:focus {
-		top: $spacing-md;
-	}
+	white-space: nowrap;
 }
 
 a {
