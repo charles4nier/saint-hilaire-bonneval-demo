@@ -29,7 +29,7 @@ export default function EditorialLayout({
 				<div className="editorial__hero-content">
 					<Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: breadcrumbLabel }]} />
 					<p className="editorial__eyebrow">
-						<EyebrowIcon size={14} />
+						<EyebrowIcon size={14} aria-hidden="true" />
 						{eyebrowText}
 					</p>
 					<h1 className="editorial__title">{title}</h1>

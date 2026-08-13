@@ -29,12 +29,12 @@ export default function ContactCard({
 	name,
 	badge,
 	description,
-	contacts,
+	contacts
 }: Props) {
 	return (
 		<article className={B}>
 			<div className={`${B}__icon ${B}__icon--${iconVariant}`}>
-				<Icon size={20} strokeWidth={1.75} />
+				<Icon size={20} strokeWidth={1.75} aria-hidden="true" />
 			</div>
 			<p className={`${B}__category`}>{category}</p>
 			<h3 className={`${B}__name`}>
@@ -48,7 +48,11 @@ export default function ContactCard({
 						if (c.type === 'address') {
 							return (
 								<div key={i} className={`${B}__row`}>
-									<MapPin size={13} className={`${B}__row-icon`} />
+									<MapPin
+										size={13}
+										className={`${B}__row-icon`}
+										aria-hidden="true"
+									/>
 									<span>{c.value}</span>
 								</div>
 							);
@@ -56,7 +60,11 @@ export default function ContactCard({
 						if (c.type === 'hours') {
 							return (
 								<div key={i} className={`${B}__row`}>
-									<Clock size={13} className={`${B}__row-icon`} />
+									<Clock
+										size={13}
+										className={`${B}__row-icon`}
+										aria-hidden="true"
+									/>
 									<span>{c.value}</span>
 								</div>
 							);
@@ -65,11 +73,18 @@ export default function ContactCard({
 							const isMultiple = c.value.includes('·');
 							return (
 								<div key={i} className={`${B}__row`}>
-									<Phone size={13} className={`${B}__row-icon`} />
+									<Phone
+										size={13}
+										className={`${B}__row-icon`}
+										aria-hidden="true"
+									/>
 									{isMultiple ? (
 										<span>{c.value}</span>
 									) : (
-										<a href={`tel:${c.value.replace(/[\s.]/g, '')}`} className={`${B}__link`}>
+										<a
+											href={`tel:${c.value.replace(/[\s.]/g, '')}`}
+											className={`${B}__link`}
+										>
 											{c.value}
 										</a>
 									)}
@@ -79,8 +94,15 @@ export default function ContactCard({
 						if (c.type === 'email') {
 							return (
 								<div key={i} className={`${B}__row`}>
-									<Mail size={13} className={`${B}__row-icon`} />
-									<a href={`mailto:${c.value}`} className={`${B}__link`}>
+									<Mail
+										size={13}
+										className={`${B}__row-icon`}
+										aria-hidden="true"
+									/>
+									<a
+										href={`mailto:${c.value}`}
+										className={`${B}__link`}
+									>
 										{c.value}
 									</a>
 								</div>

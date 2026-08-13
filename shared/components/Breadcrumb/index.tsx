@@ -6,10 +6,16 @@ type BreadcrumbItem = { label: string; href?: string };
 
 export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
 	return (
-		<nav className="breadcrumb">
+		<nav className="breadcrumb" aria-label="Fil d'Ariane">
 			{items.map((item, i) => (
 				<span key={i} className="breadcrumb__item">
-					{i > 0 && <ChevronRight size={13} className="breadcrumb__sep" />}
+					{i > 0 && (
+						<ChevronRight
+							size={13}
+							className="breadcrumb__sep"
+							aria-hidden="true"
+						/>
+					)}
 					{item.href ? (
 						<Link href={item.href}>{item.label}</Link>
 					) : (

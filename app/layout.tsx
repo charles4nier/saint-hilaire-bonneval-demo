@@ -38,8 +38,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="fr" className={`${cormorant.variable} ${caveat.variable}`}>
 			<body>
+				<a href="#contenu" className="skip-link">
+					Aller au contenu principal
+				</a>
 				<Header />
-				<main>{children}</main>
+				<main id="contenu">{children}</main>
 				<Footer />
 				<FloatingButtons />
 			</body>

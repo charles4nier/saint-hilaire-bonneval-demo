@@ -96,7 +96,7 @@ export default function AnnuaireLayout({
 				<div className={`${B}__hero-content`}>
 					<Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: breadcrumbLabel }]} />
 					<p className={`${B}__eyebrow`}>
-						<EyebrowIcon size={14} />
+						<EyebrowIcon size={14} aria-hidden="true" />
 						{eyebrowText}
 					</p>
 					<h1 className={`${B}__title`}>{title}</h1>
@@ -111,7 +111,7 @@ export default function AnnuaireLayout({
 				{/* Header */}
 				<div className={`${B}__head container`}>
 					<p className={`${B}__head-eyebrow`}>{sectionEyebrow}</p>
-					<h2 className={`${B}__head-title`}>{count} {countLabel}</h2>
+					<h2 className={`${B}__head-title`} aria-live="polite">{count} {countLabel}</h2>
 					<div className={`${B}__head-divider`} />
 				</div>
 

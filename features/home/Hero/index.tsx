@@ -20,8 +20,11 @@ export default function Hero() {
 			<div className={`${CLASS_NAME}__content container`}>
 				<div className={`${CLASS_NAME}__body animate-fade-up`}>
 					<h1 className={`${CLASS_NAME}__title`}>
-						Bienvenue à{' '}
-						<span className={`${CLASS_NAME}__title-highlight`}>Saint-Hilaire-Bonneval</span>,
+						Bienvenue sur le site de la{' '}
+						<span className={`${CLASS_NAME}__title-highlight`}>
+							Mairie de Saint-Hilaire-Bonneval
+						</span>
+						,
 						<br />
 						au cœur de la Haute-Vienne.
 					</h1>
@@ -29,15 +32,20 @@ export default function Hero() {
 					<div className={`${CLASS_NAME}__divider`} />
 
 					<p className={`${CLASS_NAME}__desc`}>
-						Entre rivières, forêts et patrimoine vivant, la commune vous accueille.
-						Retrouvez ici vos démarches, l'actualité municipale et toutes les
-						informations utiles à la vie locale.
+						Entre rivières, forêts et patrimoine vivant, la commune
+						vous accueille. Retrouvez ici vos démarches, l'actualité
+						municipale et toutes les informations utiles à la vie
+						locale.
 					</p>
 
 					<div className={`${CLASS_NAME}__actions`}>
-						<a href="#demarches" className="btn-primary">
+						<a href="/demarches" className="btn-primary">
 							Effectuer une démarche
-							<ArrowRight size={16} className={`${CLASS_NAME}__arrow`} />
+							<ArrowRight
+								size={16}
+								className={`${CLASS_NAME}__arrow`}
+								aria-hidden="true"
+							/>
 						</a>
 						<a href="/vivre/la-commune" className="btn-secondary">
 							Découvrir la commune

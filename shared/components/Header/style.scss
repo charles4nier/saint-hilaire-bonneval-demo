@@ -147,14 +147,18 @@
 	&__dropdown {
 		position: relative;
 
-		&:hover .header__submenu {
+		// Hover stays as a mouse convenience; the --open modifier (driven by
+		// aria-expanded state, not CSS) is what makes this work via keyboard.
+		&:hover .header__submenu,
+		&--open .header__submenu {
 			opacity: 1;
 			visibility: visible;
 			transform: translateX(-50%) translateY(0);
 			pointer-events: auto;
 		}
 
-		&:hover .header__chevron {
+		&:hover .header__chevron,
+		&--open .header__chevron {
 			transform: rotate(180deg);
 		}
 	}

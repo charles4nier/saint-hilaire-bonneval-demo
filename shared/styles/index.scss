@@ -43,6 +43,25 @@ main {
 	position: relative;
 }
 
+// Off-screen until it receives keyboard focus, then jumps into view above
+// everything else on the page — lets keyboard users skip the header/nav on
+// every page instead of tabbing through it each time.
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: $spacing-md;
+	z-index: 999;
+	padding: $spacing-sm $spacing-lg;
+	background: $primary;
+	color: $primary-foreground;
+	font-size: $small-size-desktop;
+	font-weight: $font-weight-semibold;
+
+	&:focus {
+		top: $spacing-md;
+	}
+}
+
 a {
 	color: inherit;
 	text-decoration: none;

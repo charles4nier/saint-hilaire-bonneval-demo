@@ -3,9 +3,9 @@ import { generatePageMetadata } from '@shared/config/seo';
 import HistoirePage from '@features/histoire';
 
 export const metadata: Metadata = generatePageMetadata({
-	title: 'Histoire de Meuzac',
+	title: 'Histoire de Saint-Hilaire-Bonneval',
 	description:
-		"Découvrez l'histoire de Meuzac, seule commune de France à porter ce nom : origines gallo-romaines, paroisse, développement du bourg et patrimoine.",
+		"Découvrez l'histoire de Saint-Hilaire-Bonneval : origines gallo-romaines, paroisse, développement du bourg et patrimoine.",
 	path: '/histoire'
 });
 

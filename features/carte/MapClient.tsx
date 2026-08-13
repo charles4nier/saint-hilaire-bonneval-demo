@@ -1,7 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, GeoJSON, useMap } from 'react-leaflet';
+import {
+	MapContainer,
+	TileLayer,
+	Marker,
+	Popup,
+	Polyline,
+	GeoJSON,
+	useMap
+} from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -15,13 +23,14 @@ const TILES = {
 	satellite: {
 		url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar',
-		maxZoom: 19,
+		maxZoom: 19
 	},
 	plan: {
 		url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-		maxZoom: 19,
-	},
+		attribution:
+			'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+		maxZoom: 19
+	}
 };
 
 const CENTER: [number, number] = [45.7193, 1.3757];
@@ -29,12 +38,12 @@ const DEFAULT_ZOOM = 14;
 
 const COLORS = {
 	hebergement: '#e07050',
-	'site-visite': '#3b5fc0',
+	'site-visite': '#3b5fc0'
 };
 
 const LABELS = {
 	hebergement: 'Hébergement',
-	'site-visite': 'Site de visite',
+	'site-visite': 'Site de visite'
 };
 
 function createMarkerIcon(color: string, selected = false) {
@@ -51,7 +60,7 @@ function createMarkerIcon(color: string, selected = false) {
 		"></div>`,
 		iconSize: [size, size],
 		iconAnchor: [size / 2, size / 2],
-		popupAnchor: [0, -(size / 2 + 4)],
+		popupAnchor: [0, -(size / 2 + 4)]
 	});
 }
 
@@ -69,7 +78,7 @@ function createClusterIcon(cluster: any) {
 			color:#3b5fc0;box-shadow:0 4px 16px rgba(0,0,0,0.35);
 		">${count}</div>`,
 		iconSize: [44, 44],
-		iconAnchor: [22, 22],
+		iconAnchor: [22, 22]
 	});
 }
 
@@ -86,11 +95,19 @@ function MapControls() {
 	return (
 		<div className="carte__controls">
 			<div className="carte__zoom-btns">
-				<button className="carte__ctrl-btn" onClick={() => map.zoomIn()} aria-label="Zoom +">
-					<Plus size={16} />
+				<button
+					className="carte__ctrl-btn"
+					onClick={() => map.zoomIn()}
+					aria-label="Zoom +"
+				>
+					<Plus size={16} aria-hidden="true" />
 				</button>
-				<button className="carte__ctrl-btn" onClick={() => map.zoomOut()} aria-label="Zoom -">
-					<Minus size={16} />
+				<button
+					className="carte__ctrl-btn"
+					onClick={() => map.zoomOut()}
+					aria-label="Zoom -"
+				>
+					<Minus size={16} aria-hidden="true" />
 				</button>
 			</div>
 		</div>
@@ -99,7 +116,7 @@ function MapControls() {
 
 function FlyTo({
 	id,
-	markersRef,
+	markersRef
 }: {
 	id?: string;
 	markersRef: React.RefObject<Map<string, L.Marker>>;
@@ -117,7 +134,9 @@ function FlyTo({
 		}
 		const sentier = sentiers.find((s) => s.id === id);
 		if (sentier && sentier.coordinates.length > 0) {
-			const bounds = L.latLngBounds(sentier.coordinates.map((c) => L.latLng(c[0], c[1])));
+			const bounds = L.latLngBounds(
+				sentier.coordinates.map((c) => L.latLng(c[0], c[1]))
+			);
 			map.fitBounds(bounds, { padding: [60, 60], animate: true });
 		}
 	}, [id, map, markersRef]);
@@ -131,7 +150,8 @@ function FitCommune({ geoJSON, skip }: { geoJSON: any; skip: boolean }) {
 		if (skip || !geoJSON) return;
 		try {
 			const bounds = L.geoJSON(geoJSON).getBounds();
-			if (bounds.isValid()) map.fitBounds(bounds, { padding: [48, 48], animate: true });
+			if (bounds.isValid())
+				map.fitBounds(bounds, { padding: [48, 48], animate: true });
 		} catch {
 			// contour invalide, on ignore
 		}
@@ -139,17 +159,21 @@ function FitCommune({ geoJSON, skip }: { geoJSON: any; skip: boolean }) {
 	return null;
 }
 
-type FilterState = { hebergement: boolean; 'site-visite': boolean; sentier: boolean };
+type FilterState = {
+	hebergement: boolean;
+	'site-visite': boolean;
+	sentier: boolean;
+};
 type Props = { initialId?: string };
 
-const SHEET_MIN = 80;   // handle + filtre header collapsed
+const SHEET_MIN = 80; // handle + filtre header collapsed
 const SHEET_MAX = 0.48; // 48vh = hauteur CSS initiale du sheet
 
 export default function MapClient({ initialId }: Props) {
 	const [filters, setFilters] = useState<FilterState>({
 		hebergement: true,
 		'site-visite': true,
-		sentier: true,
+		sentier: true
 	});
 	const [selectedId, setSelectedId] = useState<string | undefined>(initialId);
 	const [filtersExpanded, setFiltersExpanded] = useState(false);
@@ -169,7 +193,11 @@ export default function MapClient({ initialId }: Props) {
 			.then((r) => r.json())
 			.then((data) => {
 				if (data.contour) {
-					setCommuneGeoJSON({ type: 'Feature', geometry: data.contour, properties: {} });
+					setCommuneGeoJSON({
+						type: 'Feature',
+						geometry: data.contour,
+						properties: {}
+					});
 				}
 			})
 			.catch(() => null);
@@ -219,30 +247,50 @@ export default function MapClient({ initialId }: Props) {
 				<button
 					className={`carte__filter ${filters.hebergement ? 'carte__filter--active' : ''}`}
 					onClick={() => toggle('hebergement')}
+					aria-pressed={filters.hebergement}
 				>
-					<span className="carte__filter-dot" style={{ background: COLORS.hebergement }} />
+					<span
+						className="carte__filter-dot"
+						style={{ background: COLORS.hebergement }}
+					/>
 					Hébergements
 					<span className="carte__filter-count">
-						{pois.filter((p) => p.category === 'hebergement').length}
+						{
+							pois.filter((p) => p.category === 'hebergement')
+								.length
+						}
 					</span>
 				</button>
 				<button
 					className={`carte__filter ${filters['site-visite'] ? 'carte__filter--active' : ''}`}
 					onClick={() => toggle('site-visite')}
+					aria-pressed={filters['site-visite']}
 				>
-					<span className="carte__filter-dot" style={{ background: COLORS['site-visite'] }} />
+					<span
+						className="carte__filter-dot"
+						style={{ background: COLORS['site-visite'] }}
+					/>
 					Sites de visite
 					<span className="carte__filter-count">
-						{pois.filter((p) => p.category === 'site-visite').length}
+						{
+							pois.filter((p) => p.category === 'site-visite')
+								.length
+						}
 					</span>
 				</button>
 				<button
 					className={`carte__filter ${filters.sentier ? 'carte__filter--active' : ''}`}
 					onClick={() => toggle('sentier')}
+					aria-pressed={filters.sentier}
 				>
-					<span className="carte__filter-dot" style={{ background: '#555' }} />
+					<span
+						className="carte__filter-dot"
+						style={{ background: '#555' }}
+					/>
 					Sentiers
-					<span className="carte__filter-count">{sentiers.length}</span>
+					<span className="carte__filter-count">
+						{sentiers.length}
+					</span>
 				</button>
 			</div>
 		</div>
@@ -253,23 +301,32 @@ export default function MapClient({ initialId }: Props) {
 			{visiblePois.length > 0 && (
 				<>
 					<div className="carte__sidebar-section-label">
-						{visiblePois.length} lieu{visiblePois.length > 1 ? 'x' : ''}
+						{visiblePois.length} lieu
+						{visiblePois.length > 1 ? 'x' : ''}
 					</div>
 					{visiblePois.map((poi) => (
 						<button
 							key={poi.id}
 							className={`carte__poi-card ${selectedId === poi.id ? 'carte__poi-card--selected' : ''}`}
 							onClick={() => handleSelectPoi(poi.id)}
+							aria-pressed={selectedId === poi.id}
 						>
 							<div className="carte__poi-thumb">
 								<img src={poi.image} alt={poi.name} />
 							</div>
 							<div className="carte__poi-info">
-								<span className="carte__poi-badge" style={{ color: COLORS[poi.category] }}>
+								<span
+									className="carte__poi-badge"
+									style={{ color: COLORS[poi.category] }}
+								>
 									{LABELS[poi.category]}
 								</span>
-								<div className="carte__poi-name">{poi.name}</div>
-								<div className="carte__poi-desc">{poi.description}</div>
+								<div className="carte__poi-name">
+									{poi.name}
+								</div>
+								<div className="carte__poi-desc">
+									{poi.description}
+								</div>
 							</div>
 						</button>
 					))}
@@ -278,8 +335,12 @@ export default function MapClient({ initialId }: Props) {
 
 			{visibleSentiers.length > 0 && (
 				<>
-					<div className="carte__sidebar-section-label" style={{ marginTop: 8 }}>
-						{visibleSentiers.length} sentier{visibleSentiers.length > 1 ? 's' : ''}
+					<div
+						className="carte__sidebar-section-label"
+						style={{ marginTop: 8 }}
+					>
+						{visibleSentiers.length} sentier
+						{visibleSentiers.length > 1 ? 's' : ''}
 					</div>
 					{visibleSentiers.map((s) => (
 						<div key={s.id} className="carte__poi-card">
@@ -287,7 +348,10 @@ export default function MapClient({ initialId }: Props) {
 								<img src={s.image} alt={s.name} />
 							</div>
 							<div className="carte__poi-info">
-								<span className="carte__poi-badge" style={{ color: '#555' }}>
+								<span
+									className="carte__poi-badge"
+									style={{ color: '#555' }}
+								>
 									Sentier
 								</span>
 								<div className="carte__poi-name">{s.name}</div>
@@ -330,7 +394,7 @@ export default function MapClient({ initialId }: Props) {
 						weight: 2.5,
 						opacity: 0.9,
 						fillColor: '#3b5fc0',
-						fillOpacity: 0.06,
+						fillOpacity: 0.06
 					}}
 				/>
 			)}
@@ -345,27 +409,45 @@ export default function MapClient({ initialId }: Props) {
 					<Marker
 						key={poi.id}
 						position={[poi.lat, poi.lng]}
-						icon={createMarkerIcon(COLORS[poi.category], selectedId === poi.id)}
+						icon={createMarkerIcon(
+							COLORS[poi.category],
+							selectedId === poi.id
+						)}
 						eventHandlers={{ click: () => handleSelectPoi(poi.id) }}
 						ref={(instance) => {
-							if (instance) markerRefs.current.set(poi.id, instance);
+							if (instance)
+								markerRefs.current.set(poi.id, instance);
 							else markerRefs.current.delete(poi.id);
 						}}
 					>
-						<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
+						<Popup
+							className="carte__popup-wrap"
+							maxWidth={280}
+							minWidth={280}
+						>
 							<div className="carte__popup">
 								<div className="carte__popup-photo">
-									<img src={poi.image} alt={poi.name} className="carte__popup-img" />
+									<img
+										src={poi.image}
+										alt={poi.name}
+										className="carte__popup-img"
+									/>
 									<span
 										className="carte__popup-badge"
-										style={{ background: COLORS[poi.category] }}
+										style={{
+											background: COLORS[poi.category]
+										}}
 									>
 										{LABELS[poi.category]}
 									</span>
 								</div>
 								<div className="carte__popup-body">
-									<div className="carte__popup-name">{poi.name}</div>
-									<div className="carte__popup-desc">{poi.description}</div>
+									<div className="carte__popup-name">
+										{poi.name}
+									</div>
+									<div className="carte__popup-desc">
+										{poi.description}
+									</div>
 								</div>
 							</div>
 						</Popup>
@@ -382,20 +464,39 @@ export default function MapClient({ initialId }: Props) {
 					opacity={0.85}
 					dashArray="8 6"
 				>
-					<Popup className="carte__popup-wrap" maxWidth={280} minWidth={280}>
+					<Popup
+						className="carte__popup-wrap"
+						maxWidth={280}
+						minWidth={280}
+					>
 						<div className="carte__popup">
 							<div className="carte__popup-photo">
-								<img src={s.image} alt={s.name} className="carte__popup-img" />
-								<span className="carte__popup-badge" style={{ background: '#555' }}>
+								<img
+									src={s.image}
+									alt={s.name}
+									className="carte__popup-img"
+								/>
+								<span
+									className="carte__popup-badge"
+									style={{ background: '#555' }}
+								>
 									Sentier
 								</span>
 							</div>
 							<div className="carte__popup-body">
-								<div className="carte__popup-name">{s.name}</div>
-								<div className="carte__popup-desc">{s.description}</div>
+								<div className="carte__popup-name">
+									{s.name}
+								</div>
+								<div className="carte__popup-desc">
+									{s.description}
+								</div>
 								<div className="carte__popup-meta">
-									<span className="carte__popup-tag">{s.distance}</span>
-									<span className="carte__popup-tag">{s.duration}</span>
+									<span className="carte__popup-tag">
+										{s.distance}
+									</span>
+									<span className="carte__popup-tag">
+										{s.duration}
+									</span>
 								</div>
 							</div>
 						</div>
@@ -410,15 +511,23 @@ export default function MapClient({ initialId }: Props) {
 			{/* Sidebar desktop */}
 			<aside className="carte__sidebar">
 				<div className="carte__sidebar-header">
-					<div className="carte__sidebar-eyebrow">Saint-Hilaire-Bonneval</div>
-					<h1 className="carte__sidebar-title">Explorer la commune</h1>
+					<div className="carte__sidebar-eyebrow">
+						Saint-Hilaire-Bonneval
+					</div>
+					<h1 className="carte__sidebar-title">
+						Explorer la commune
+					</h1>
 				</div>
 				{filtersSection}
 				{listSection}
 			</aside>
 
 			{/* Carte */}
-			<div className="carte__map-wrap">
+			<div
+				className="carte__map-wrap"
+				role="region"
+				aria-label="Carte interactive de la commune"
+			>
 				{mapContent}
 			</div>
 
@@ -426,9 +535,17 @@ export default function MapClient({ initialId }: Props) {
 			<div
 				className="carte__mobile-sheet"
 				ref={sheetRef}
-				style={sheetHeight !== null ? { height: sheetHeight, maxHeight: 'none' } : undefined}
+				style={
+					sheetHeight !== null
+						? { height: sheetHeight, maxHeight: 'none' }
+						: undefined
+				}
 			>
-				<div ref={handleRef} className="carte__sheet-handle" onPointerDown={onHandlePointerDown} />
+				<div
+					ref={handleRef}
+					className="carte__sheet-handle"
+					onPointerDown={onHandlePointerDown}
+				/>
 
 				{/* Filtres — collapsés par défaut */}
 				<div className="carte__sheet-filters">
@@ -436,14 +553,17 @@ export default function MapClient({ initialId }: Props) {
 						className="carte__sheet-filters-toggle"
 						onClick={() => setFiltersExpanded((o) => !o)}
 					>
-						<SlidersHorizontal size={13} />
+						<SlidersHorizontal size={13} aria-hidden="true" />
 						<span>Filtres</span>
 						<ChevronDown
 							size={13}
 							className={`carte__sheet-filters-arrow${filtersExpanded ? ' carte__sheet-filters-arrow--open' : ''}`}
+							aria-hidden="true"
 						/>
 					</button>
-					<div className={`carte__sheet-filters-panel${filtersExpanded ? ' carte__sheet-filters-panel--open' : ''}`}>
+					<div
+						className={`carte__sheet-filters-panel${filtersExpanded ? ' carte__sheet-filters-panel--open' : ''}`}
+					>
 						<div className="carte__sheet-filters-panel-inner">
 							{filtersSection}
 						</div>

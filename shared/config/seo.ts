@@ -1,5 +1,5 @@
 export const siteConfig = {
-	name: 'Saint-Hilaire-Bonneval',
+	name: 'Mairie de Saint-Hilaire-Bonneval',
 	description:
 		'Site officiel de la commune de Saint-Hilaire-Bonneval (87) : démarches, actualités, tourisme, vie locale et patrimoine au cœur du Limousin.',
 	url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.saint-hilaire-bonneval.fr',
@@ -22,7 +22,7 @@ export const defaultMetadata = {
 	metadataBase: new URL(siteConfig.url),
 	title: {
 		default: siteConfig.name,
-		template: `%s | ${siteConfig.name}`
+		template: `${siteConfig.name} | %s`
 	},
 	description: siteConfig.description,
 	keywords: siteConfig.keywords,
@@ -68,7 +68,7 @@ export function generatePageMetadata({
 	description: string;
 	path?: string;
 }) {
-	const fullTitle = `${title} | ${siteConfig.name}`;
+	const fullTitle = `${siteConfig.name} | ${title}`;
 	const url = `${siteConfig.url}${path}`;
 
 	return {

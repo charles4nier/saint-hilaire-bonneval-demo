@@ -1,6 +1,6 @@
 @import '@shared/styles/variables';
 
-$b: 'actualites';
+$b: 'horaires';
 
 /* ========================
    Hero
@@ -59,13 +59,7 @@ $b: 'actualites';
 	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: $spacing-lg;
 
-	a:hover {
-		color: #ffffff;
-	}
-
-	svg {
-		flex-shrink: 0;
-	}
+	a:hover { color: #ffffff; }
 }
 
 .#{$b}__eyebrow {
@@ -104,7 +98,7 @@ $b: 'actualites';
 }
 
 /* ========================
-   Section articles
+   Section & blocs
    ======================== */
 
 .#{$b}__section {
@@ -112,19 +106,21 @@ $b: 'actualites';
 	padding-bottom: $section-padding-y-desktop;
 }
 
-.#{$b}__header {
-	margin-bottom: $spacing-4xl;
+.#{$b}__inner {
+	display: flex;
+	flex-direction: column;
+	gap: $spacing-7xl;
 }
 
-.#{$b}__header-eyebrow {
+.#{$b}__block-eyebrow {
 	font-size: $xs-size-desktop;
 	font-weight: $font-weight-bold;
 	text-transform: uppercase;
 	letter-spacing: 0.22em;
-	color: $primary;
+	color: $coral;
 }
 
-.#{$b}__header-title {
+.#{$b}__block-title {
 	font-family: $font-display;
 	font-size: $h2-size-desktop;
 	font-weight: $font-weight-semibold;
@@ -133,120 +129,122 @@ $b: 'actualites';
 	color: $foreground;
 }
 
-.#{$b}__header-divider {
+.#{$b}__block-divider {
 	width: 64px;
 	height: 4px;
 	background: $coral;
 	margin-top: $spacing-md;
+	margin-bottom: $spacing-4xl;
 }
 
 /* ========================
-   Grille d'articles
+   Tableau d'horaires
    ======================== */
 
-.#{$b}__grid {
+.#{$b}__table-wrap {
+	overflow-x: auto;
+	border: 1px solid $border;
+}
+
+.#{$b}__table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #ffffff;
+}
+
+.#{$b}__table-caption {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.#{$b}__table th,
+.#{$b}__table td {
+	padding: $spacing-md $spacing-lg;
+	text-align: left;
+	font-size: $small-size-desktop;
+	border-bottom: 1px solid $border;
+}
+
+.#{$b}__table thead th {
+	font-size: $xs-size-desktop;
+	font-weight: $font-weight-bold;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: $muted-foreground;
+	background: $secondary;
+}
+
+.#{$b}__table tbody th {
+	font-weight: $font-weight-semibold;
+	color: $foreground;
+	white-space: nowrap;
+}
+
+.#{$b}__table tbody td {
+	color: $muted-foreground;
+	font-variant-numeric: tabular-nums;
+}
+
+.#{$b}__table tbody tr:last-child th,
+.#{$b}__table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.#{$b}__table-row--closed td {
+	color: $muted-foreground;
+	font-style: italic;
+}
+
+.#{$b}__closures {
+	margin-top: $spacing-xl;
+	padding: $spacing-lg $spacing-xl;
+	background: $secondary;
+}
+
+.#{$b}__closures-title {
+	font-size: $xs-size-desktop;
+	font-weight: $font-weight-bold;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: $muted-foreground;
+	margin-bottom: $spacing-sm;
+}
+
+.#{$b}__closures-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: $spacing-sm $spacing-xl;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: $small-size-desktop;
+	color: $foreground;
+
+	li::before {
+		content: '· ';
+		color: $coral;
+		font-weight: $font-weight-bold;
+	}
+}
+
+/* ========================
+   Contacts pratiques
+   ======================== */
+
+.#{$b}__contacts {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: $spacing-xl;
+	gap: $spacing-md;
 
 	@media (min-width: $breakpoint-sm) {
 		grid-template-columns: 1fr 1fr;
 	}
 
 	@media (min-width: $breakpoint-md) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-}
-
-.#{$b}__card {
-	background: #ffffff;
-	padding: $spacing-xl;
-	display: flex;
-	flex-direction: column;
-	transition: $transition-smooth;
-
-	&:hover {
-		box-shadow: $shadow-soft;
-	}
-}
-
-.#{$b}__card-top {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: $spacing-md;
-	margin-bottom: $spacing-lg;
-	flex-wrap: wrap;
-}
-
-.#{$b}__card-cat {
-	display: inline-flex;
-	align-items: center;
-	gap: 5px;
-	font-size: 10px;
-	font-weight: $font-weight-bold;
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	padding: 4px 10px;
-
-	&--primary {
-		background: $primary-10;
-		color: $primary;
-	}
-
-	&--leaf {
-		background: $leaf-15;
-		color: $leaf;
-	}
-
-	&--coral {
-		background: $coral-15;
-		color: $coral;
-	}
-
-	&--sunshine {
-		background: $sunshine-25;
-		color: $foreground-80;
-	}
-}
-
-.#{$b}__card-date {
-	display: inline-flex;
-	align-items: center;
-	gap: 5px;
-	font-size: 11px;
-	color: $muted-foreground;
-	white-space: nowrap;
-}
-
-.#{$b}__card-title {
-	font-family: $font-display;
-	font-size: $h3-size-desktop;
-	font-weight: $font-weight-semibold;
-	line-height: $line-height-snug;
-	color: $foreground;
-	margin-bottom: $spacing-md;
-}
-
-.#{$b}__card-excerpt {
-	flex: 1;
-	font-size: $small-size-desktop;
-	line-height: $line-height-relaxed;
-	color: $foreground-80;
-	margin-bottom: $spacing-xl;
-}
-
-.#{$b}__card-link {
-	display: inline-flex;
-	align-items: center;
-	gap: $spacing-sm;
-	font-size: $small-size-desktop;
-	font-weight: $font-weight-medium;
-	color: $primary;
-	margin-top: auto;
-	transition: gap 0.15s;
-
-	&:hover {
-		gap: $spacing-md;
+		grid-template-columns: repeat(4, 1fr);
 	}
 }

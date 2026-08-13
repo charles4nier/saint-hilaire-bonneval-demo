@@ -108,6 +108,34 @@ $b: 'demarches';
 	padding-bottom: $section-padding-y-desktop;
 }
 
+.#{$b}__header {
+	margin-bottom: $spacing-4xl;
+}
+
+.#{$b}__header-eyebrow {
+	font-size: $xs-size-desktop;
+	font-weight: $font-weight-bold;
+	text-transform: uppercase;
+	letter-spacing: 0.22em;
+	color: $primary;
+}
+
+.#{$b}__header-title {
+	font-family: $font-display;
+	font-size: $h2-size-desktop;
+	font-weight: $font-weight-semibold;
+	line-height: $line-height-snug;
+	margin-top: $spacing-sm;
+	color: $foreground;
+}
+
+.#{$b}__header-divider {
+	width: 64px;
+	height: 4px;
+	background: $coral;
+	margin-top: $spacing-md;
+}
+
 .#{$b}__body {
 	padding-bottom: $section-padding-y-desktop;
 }

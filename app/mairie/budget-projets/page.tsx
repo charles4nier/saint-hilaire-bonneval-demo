@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@shared/config/seo';
-import ComingSoon from '@shared/components/ComingSoon';
+import BudgetProjetsPage from '@features/budget-projets';
 
 export const metadata: Metadata = generatePageMetadata({
 	title: 'Budget & projets',
-	description: 'Budget communal et projets en cours à Saint-Hilaire-Bonneval.',
+	description: 'Budgets votés, comptes administratifs et grands projets municipaux à Saint-Hilaire-Bonneval.',
 	path: '/mairie/budget-projets'
 });
 
 export default function Page() {
-	return <ComingSoon title="Budget & projets" section="Votre mairie" sectionHref="/mairie/budget-projets" />;
+	return <BudgetProjetsPage />;
 }
