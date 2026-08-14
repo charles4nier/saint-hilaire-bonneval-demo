@@ -123,10 +123,6 @@ export default function News() {
 								<p className={`${CLASS_NAME}__card-excerpt`}>
 									{article.excerpt}
 								</p>
-								<div className={`${CLASS_NAME}__card-link`}>
-									Lire la suite
-									<ArrowRight size={16} aria-hidden="true" />
-								</div>
 							</article>
 						)
 					)}

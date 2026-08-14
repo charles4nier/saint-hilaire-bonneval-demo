@@ -47,7 +47,7 @@
 
 	&__grid {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 1px;
 		background-color: $border;
 	}
@@ -89,11 +89,6 @@
 			background: $leaf-15;
 			color: $leaf;
 		}
-
-		&--sunshine {
-			background: $sunshine-25;
-			color: $terracotta;
-		}
 	}
 
 	&__item-title {
@@ -121,6 +116,94 @@
 		transition: $transition-smooth;
 	}
 
+	/* ---- Agenda (bande pleine largeur en bas de carte) ---- */
+
+	&__agenda {
+		display: flex;
+		align-items: center;
+		gap: $spacing-xl;
+		margin: $spacing-2xl (-$spacing-3xl) (-$spacing-2xl);
+		padding: $spacing-2xl $spacing-3xl;
+		background-color: $foreground;
+		color: $background;
+		border-top: 4px solid $coral;
+	}
+
+	&__agenda-date {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 72px;
+		height: 72px;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	&__agenda-date-day {
+		font-family: $font-display;
+		font-size: 26px;
+		font-weight: $font-weight-semibold;
+		line-height: 1;
+		color: #ffffff;
+	}
+
+	&__agenda-date-month {
+		margin-top: 4px;
+		font-family: $font-body;
+		font-size: 10px;
+		font-weight: $font-weight-bold;
+		letter-spacing: 0.14em;
+		color: $coral;
+	}
+
+	&__agenda-body {
+		flex: 1;
+		min-width: 0;
+	}
+
+	&__agenda-eyebrow {
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm;
+		font-family: $font-body;
+		font-size: 11px;
+		font-weight: $font-weight-bold;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: $coral;
+	}
+
+	&__agenda-title {
+		margin-top: 4px;
+		font-family: $font-display;
+		font-size: 16px;
+		font-weight: $font-weight-semibold;
+		color: #ffffff;
+	}
+
+	&__agenda-link {
+		display: inline-flex;
+		align-items: center;
+		flex-shrink: 0;
+		gap: 6px;
+		padding: 12px 24px;
+		background-color: #ffffff;
+		color: $foreground;
+		font-family: $font-body;
+		font-size: $small-size-desktop;
+		font-weight: $font-weight-semibold;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		transition: $transition-smooth;
+
+		&:hover {
+			background-color: $coral;
+			color: #ffffff;
+		}
+	}
+
 	/* ---- Responsive ---- */
 
 	@media (max-width: $breakpoint-md) {
@@ -130,6 +213,12 @@
 
 		&__grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&__agenda {
+			flex-wrap: wrap;
+			margin: $spacing-xl (-$spacing-xl) (-$spacing-xl);
+			padding: $spacing-xl;
 		}
 	}
 

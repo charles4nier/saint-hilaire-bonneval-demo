@@ -1,10 +1,13 @@
+import Link from 'next/link';
 import {
 	FileText,
 	Gavel,
 	Phone,
+	ArrowUpRight,
 	CalendarDays,
-	ArrowUpRight
+	ArrowRight
 } from 'lucide-react';
+import { events } from '@features/agenda/data';
 import './style.scss';
 
 const CLASS_NAME = 'quick-access';
@@ -30,17 +33,31 @@ const items = [
 		desc: 'Numéros utiles et services publics à proximité.',
 		mod: 'leaf',
 		href: '/numeros-utiles'
-	},
-	{
-		icon: CalendarDays,
-		title: 'Agenda du village',
-		desc: 'Marchés, festivités, vie associative et culturelle.',
-		mod: 'sunshine',
-		href: '/agenda'
 	}
 ] as const;
 
+const monthShort = [
+	'JANV.',
+	'FÉVR.',
+	'MARS',
+	'AVR.',
+	'MAI',
+	'JUIN',
+	'JUIL.',
+	'AOÛT',
+	'SEPT.',
+	'OCT.',
+	'NOV.',
+	'DÉC.'
+];
+
 export default function QuickAccess() {
+	const today = new Date(new Date().toDateString());
+	const nextEvent = events
+		.filter((e) => new Date(e.date) >= today)
+		.sort((a, b) => a.date.localeCompare(b.date))[0];
+	const nextEventDate = nextEvent ? new Date(nextEvent.date) : null;
+
 	return (
 		<section id="demarches" className={CLASS_NAME}>
 			<div className="container">
@@ -87,6 +104,42 @@ export default function QuickAccess() {
 							);
 						})}
 					</div>
+
+					{nextEvent && nextEventDate && (
+						<div className={`${CLASS_NAME}__agenda`}>
+							<div className={`${CLASS_NAME}__agenda-date`}>
+								<span
+									className={`${CLASS_NAME}__agenda-date-day`}
+								>
+									{nextEventDate.getDate()}
+								</span>
+								<span
+									className={`${CLASS_NAME}__agenda-date-month`}
+								>
+									{monthShort[nextEventDate.getMonth()]}
+								</span>
+							</div>
+							<div className={`${CLASS_NAME}__agenda-body`}>
+								<p className={`${CLASS_NAME}__agenda-eyebrow`}>
+									<CalendarDays
+										size={14}
+										aria-hidden="true"
+									/>
+									Prochain rendez-vous
+								</p>
+								<p className={`${CLASS_NAME}__agenda-title`}>
+									{nextEvent.title}
+								</p>
+							</div>
+							<Link
+								href="/agenda"
+								className={`${CLASS_NAME}__agenda-link`}
+							>
+								Voir l&rsquo;agenda
+								<ArrowRight size={16} aria-hidden="true" />
+							</Link>
+						</div>
+					)}
 				</div>
 			</div>
 		</section>

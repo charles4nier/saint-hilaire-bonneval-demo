@@ -10,9 +10,9 @@ export default function HomePage() {
 		<>
 			<Hero />
 			<QuickAccess />
-			<Discover />
-			<MayorWord />
 			<News />
+			<MayorWord />
+			<Discover />
 			<CTA />
 		</>
 	);
