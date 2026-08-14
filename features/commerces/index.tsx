@@ -40,10 +40,10 @@ export default function CommercesPage() {
 	return (
 		<AnnuaireLayout
 			heroGradient="linear-gradient(135deg, oklch(0.52 0.17 240), oklch(0.70 0.16 220))"
-			breadcrumbLabel="Commerces & artisans"
+			breadcrumbLabel="Services & vie pratique"
 			eyebrowIcon={Store}
 			eyebrowText="Vivre à Saint-Hilaire-Bonneval"
-			title="Commerces & artisans"
+			title="Services & vie pratique"
 			subtitle={<>Producteurs, restaurateurs, professionnels de santé et artisans :<br />celles et ceux qui animent la commune au quotidien.</>}
 			sectionEyebrow="Annuaire local"
 			countSingular="professionnel à découvrir"
